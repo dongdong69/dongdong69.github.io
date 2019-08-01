@@ -58,6 +58,8 @@ This blog contains some useful information for Brand Detection project, which in
         <div class="stuff">
             <span>七月 01, 2019</span>
             
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Computer-vision/">Computer vision</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Epam/">Epam</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li></ul>
+
 
         </div>
         <div class="content markdown">
@@ -190,19 +192,19 @@ This blog contains some useful information for Brand Detection project, which in
 <p>  download tensorflow:</p>
 <pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install tensorflow</span><br><span class="line"><span class="comment">## tensorflow gpu</span></span><br><span class="line">pip install tensorflow-gpu</span><br></pre></td></tr></table></figure></code></pre><p>  If you are using conda, highly recommend build your onw environment. Please follow the following steps.</p>
 <p>  step 1: set a environment for tensorflow</p>
-  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#create a env for tensorflow</span></span><br><span class="line">conda create -n tensorflow python=3.6</span><br><span class="line"></span><br><span class="line"><span class="comment">#actovate the environment</span></span><br><span class="line">activate tensorflow</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#create a env for tensorflow</span></span><br><span class="line">conda create -n tensorflow python=3.6</span><br><span class="line"></span><br><span class="line"><span class="comment">#actovate the environment</span></span><br><span class="line">activate tensorflow</span><br></pre></td></tr></table></figure>
 
 <p>  step 2: install anaconda</p>
-  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">canda install anaconda</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">canda install anaconda</span><br></pre></td></tr></table></figure>
 
 <p>  step 3: install tensorflow</p>
-  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">canda install anaconda</span><br><span class="line"><span class="comment">#tensorflow-gpu</span></span><br><span class="line">canda install anaconda-gpu</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">canda install anaconda</span><br><span class="line"><span class="comment">#tensorflow-gpu</span></span><br><span class="line">canda install anaconda-gpu</span><br></pre></td></tr></table></figure>
 
 <p>  step 4: Maybe you need to undate you conda tenforflow</p>
-  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#check the version of conda tensorflow</span></span><br><span class="line">anaconda search -t conda tensorflow</span><br><span class="line"></span><br><span class="line"><span class="comment">#find the version you want and match youe environment</span></span><br><span class="line">anaconda show &lt;USER/PACKAGE&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">#according to the donwload url from upper step, downloard tensorflow</span></span><br><span class="line"></span><br><span class="line">conda install --channel https://conda.anaconda.org/anaconda tensorflow</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#check the version of conda tensorflow</span></span><br><span class="line">anaconda search -t conda tensorflow</span><br><span class="line"></span><br><span class="line"><span class="comment">#find the version you want and match youe environment</span></span><br><span class="line">anaconda show &lt;USER/PACKAGE&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">#according to the donwload url from upper step, downloard tensorflow</span></span><br><span class="line"></span><br><span class="line">conda install --channel https://conda.anaconda.org/anaconda tensorflow</span><br></pre></td></tr></table></figure>
 
-<p>  setp 5: Set up you jupyter environment. Now you have your tensorflow env in your.</p>
-  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m ipykernel install --user --name env_name --display-name <span class="string">"Python env"</span></span><br></pre></td></tr></table></figure></li>
+<p>  setp 5: Set up you jupyter environment. Now you have your tensorflow env in your pc.</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m ipykernel install --user --name env_name --display-name <span class="string">"Python env"</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->

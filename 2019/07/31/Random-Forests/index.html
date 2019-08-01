@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html lang class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Random Forests - Dong</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Dongdong,"> 
+    <meta name="description" content="什么是随机森林
+在随机森林中有三个非常重要的要点，随机，决策树以及投票。具体这几点是如何运作的会在后文中介绍。
+首先在了解随机森林之前我们首先要了解什么是决策树。
+关于决策树，这里有一片不错的文章，,"> 
+    <meta name="author" content="John Doe"> 
+    <link rel="alternative" href="atom.xml" title="Dong" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">Dong</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">Random Forests</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Random Forests</h1>
+        <div class="stuff">
+            <span>七月 31, 2019</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Classification/">Classification</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Random-Forests/">Random Forests</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="什么是随机森林"><a href="#什么是随机森林" class="headerlink" title="什么是随机森林"></a>什么是随机森林</h2><hr>
+<p>在随机森林中有三个非常重要的要点，<strong>随机</strong>，<strong>决策树</strong>以及<strong>投票</strong>。具体这几点是如何运作的会在后文中介绍。</p>
+<p>首先在了解随机森林之前我们首先要了解什么是决策树。</p>
+<p>关于决策树，这里有一片不错的文章，出自Bin的专栏：<a href="http://blog.csdn.net/xbinworld。" target="_blank" rel="noopener">http://blog.csdn.net/xbinworld。</a></p>
+<ul>
+<li><a href="https://blog.csdn.net/xbinworld/article/details/44660339" target="_blank" rel="noopener">决策树Decision Tree原理与实现技巧</a></li>
+</ul>
+<p>随机森林简单来说呢，就是通过随机的过程生成多个决策树，预测结果由森林中的多个决策树共同投片决定。</p>
+<p><strong>但既然有了决策树，为什么我们还需要随机森林？</strong></p>
+<p>其主要原因是决策树非常容易产生过拟合的情况。就是说其往往在训练集上有较好的表现，但是在预测时候的表现却不尽如人意。而随机森林通过投票，以及局部训练这种方式极大的加强了模型的泛化能力。</p>
+<h2 id="随机森林的生成过程"><a href="#随机森林的生成过程" class="headerlink" title="随机森林的生成过程"></a>随机森林的生成过程</h2><hr>
+<p>假设我们我们具有一个维度为m*n的训练集，即我们有m条数据，每一条数据有n个特征。需要生成一个具有k棵树的森林。</p>
+<ul>
+<li><p>随机</p>
+<ol>
+<li><p>首先从样本中通过Bootstrap抽样(有放回的抽样)的方式生成k个训练样本。由于是有放回的抽样，在过程中我们回产生一些<strong>out of bag data</strong>，就是没有被抽中的数据。通过计算，我们知道一个样本没有被抽中的概率是<strong>1/e</strong>，e是自然对数的底数，其概率接近三分之一，具体的计算过程不在这里给出。</p>
+</li>
+<li><p>然后我们在一个样本集合中，每次选择n个特征中的x个（<strong>如何选择最优的x将在后文中介绍</strong>）。</p>
+</li>
+<li><p>接着我们利用决策树中特征选取的方式（比方说Gini值），在x个特征中选择最优的，直到我们建立一颗完整的决策树。</p>
+</li>
+<li><p>重复步骤2和3，k次，产生k个决策数。</p>
+</li>
+</ol>
+</li>
+<li><p>投票（Bagging）</p>
+<p>  当一条新的数据进来，需要我们做预测的时候，我们用所有的k棵决策树分别对其进行预测，没棵树有一票。最后输出的结果为得票最多的结果。</p>
+</li>
+<li><p>包外误差（Out of Bag Data）</p>
+<p>  在上文中我们提到有一些没有被抽样出来的数据，这样的数据大概占到总数居的三分之一。在训练时，我们可以将这些包外误作为测试集。我们改变x的大小，分别在测试集上测试，并选取最优的x值。</p>
+</li>
+<li><p>随机森林中缺失数据的处理</p>
+</li>
+</ul>
+<p>Reference from:</p>
+<ul>
+<li><p><a href="https://www.youtube.com/watch?v=nyxTdL_4Q-Q&t=0s" target="_blank" rel="noopener">StatQuest: Random Forests Part 2: Missing data and clustering</a></p>
+<ol>
+<li><p>训练集中的数据缺失</p>
+<p> 对于非数值型的数据，我们可以采取众数等方式补全，或者用朴素贝叶斯通过其他特征来进行预测。对于数值类型的数据，我们可以采用中位数以及平均数等方式补全。到此为止都还是常规操作，接下来的操作就比较特别了。</p>
+<p> 首先，我们创建一个m*m的矩阵M。M[u,v]对应的值是，数据u对数据v的权重加成。接下来我们用这条缺失后补全的数据，分别在k个决策树中做分类，直到分类到一个具体的叶子节点。在这个子节点上，除了这条缺失数据，我们可能还有其他多条数据集中的数据。那么他们在同一个节点上，说明这些数据具有一定的相似度。比方说数据i与数据j在同一叶子节点上，那么相应的M[i,j]加1。我们采用这种方法统计所有k个决策树。</p>
+<p> 这里我们应用<strong>StatQuest</strong>视频中的例子来讲解。我们的原始数据集如下，</p>
+ <div style="text-align: center">
+ <img src="/images/Random-Forests/Dataset.png">
+ </div>
+
+<p> “Blocked Arteries”的缺失数据根据众数的规则填补，“Weight”则根据中位数的规则填补缺失。填补后的数据如下，</p>
+ <div style="text-align: center">
+ <img src="/images/Random-Forests/Filled-in-Dataset.png">
+ </div>
+
+<p> 在建立随机森林以后，在每一棵树上，运行所有的数据。首先我们在第一颗树上运行，并且我们找到数据集上第三条和第四条在同一叶子节点上，</p>
+ <div style="text-align: center">
+ <img src="/images/Random-Forests/Sample3-Sample4.png">
+ </div>
+
+<p> 接着，我们在权值矩阵上，M[3,4]和M[4,3]位置做加一操作，如图所示，</p>
+ <div style="text-align: center">
+ <img src="/images/Random-Forests/Matrix1.png">
+ </div>
+
+<p> 接下来是同样的操作在第二棵树上，这次第二、三、四条都在同一叶子节点上，</p>
+ <div style="text-align: center">
+ <img src="/images/Random-Forests/Tree2.png">
+ </div>
+
+<p> 累加，</p>
+ <div style="text-align: center">
+ <img src="/images/Random-Forests/Matrix2.png">
+ </div>
+
+<p> 重复上述步骤，直到我们统计完所有的k棵决策树，</p>
+ <div style="text-align: center">
+ <img src="/images/Random-Forests/Matrix3.png"><img src="/images/Random-Forests/Matrix4.png">
+ </div>
+
+<p> 最后我们计算每个特征的加权频率，首先是“Blocked Arteries”，<br> 统计Yes的权重，原数据中，只有第二条记录是Yes，于是我们在权重矩阵中找到第二条对第四条的权重，为0.1，</p>
+ <div style="text-align: center">
+ <img src="http://latex.codecogs.com/gif.latex?Yes=\frac{1}{3}*The weight of Yes=\frac{1}{3}*\frac{0.1}{0.1+0.1+0.8}=0.03">
+ </div>
+
+<p> 其次是No的权重，我们找到第一条和第三条都是No，所以其权重为0.1+0.8，</p>
+ <div style="text-align: center">
+ <img src="http://latex.codecogs.com/gif.latex?No=\frac{2}{3}*The weight of No=\frac{1}{3}*\frac{0.1+0.8}{0.1+0.1+0.8}=0.6">
+ </div>
+
+<p> 0.6大于0.03，于是第四条的“Blocked Arteries”仍然为No。</p>
+<p> 对于数值型的特征，起计算过程如下，</p>
+ <div style="text-align: center">
+ <img src="http://latex.codecogs.com/gif.latex?Weight=125*\frac{0.1}{0.1+0.1+0.8}+180*\frac{0.1}{0.1+0.1+0.8}+210*\frac{0.8}{0.1+0.1+0.8}=198.5">
+ </div>
+ 我们一直迭代这个过程，直到缺失值的变化不大。
+</li>
+<li><p>新数据中的数据缺失</p>
+ <div style="text-align: center">
+ <img src="/images/Random-Forests/New-Sample.png">
+ </div>
+
+<p> 首先我们分别创建两个这个数据的副本，</p>
+ <div style="text-align: center">
+ <img src="/images/Random-Forests/Copy1.png"><img src="/images/Random-Forests/Copy2.png">
+ </div>
+
+<p> 接着我们用上文中提到过的方法，分别为他们预测缺失数据，其预测结果如下，</p>
+ <div style="text-align: center">
+ <img src="/images/Random-Forests/Guss1.png"><img src="/images/Random-Forests/Guss2.png">
+ </div>
+
+<p> 接着，我们在森林的所有数中运行这两个样例，被正确分类的夺得样例，就是我们最终的结果。假设样例1被正确分类的次数更多，那么缺失值就是“YES”，同时，我们也得到了这个新样例的分类结果“会得心脏病”。</p>
+</li>
+</ol>
+</li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title='0' data-url='http://link.hhtjim.com/163/5146554.mp3'></li>
+                    
+                        <li title='1' data-url='http://link.hhtjim.com/qq/001faIUs4M2zna.mp3'></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

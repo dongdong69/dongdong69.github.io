@@ -10,8 +10,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="Dongdong,"> 
-    <meta name="description" content="Problem Description
-Shows different ways to extract information in Time series. The basic ideas of ,"> 
+    <meta name="description" content="We use a example to tell the Similarity between Time Series.
+Problem Description
+Suppose we have te,"> 
     <meta name="author" content="John Doe"> 
     <link rel="alternative" href="atom.xml" title="Dong" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -63,12 +64,50 @@ Shows different ways to extract information in Time series. The basic ideas of ,
 
         </div>
         <div class="content markdown">
-            <h2 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h2><hr>
-<p>Shows different ways to extract information in Time series. The basic ideas of doning this, is we cannot use a time series information to do some machine learning analz. For example, we cannot use it to do the K-means. Because we may lost the information about ‘time’.</p>
-<h3 id="Statistical-Features"><a href="#Statistical-Features" class="headerlink" title="Statistical Features"></a>Statistical Features</h3><hr>
-<p>mean, max, min, median, variance, standard, variance and standard variance.</p>
-<h3 id="Entropy"><a href="#Entropy" class="headerlink" title="Entropy"></a>Entropy</h3><hr>
+            <p>We use a example to tell the Similarity between Time Series.</p>
+<h2 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h2><hr>
+<p>Suppose we have tens of thousands of products’ daily saling volume informations. We want to find the most similar product for each products in our dataset. Therefor, we need to find the best metric to measure the distance or Similarity between those products.</p>
+<h2 id="Data-Structure"><a href="#Data-Structure" class="headerlink" title="Data Structure"></a>Data Structure</h2><hr>
+<p> Followings are the data stucture of products’ daily sales information. k for number of days, n for number of products. Using 2016 data as an example, we have 366 days in this year and 33,494 products.</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?Product = \left[\begin{matrix}day_{1,1} & day_{1,2} & \cdots & day_{1,k}\\day_{2,1} & day_{2,2} & \cdots & day_{2,k}\\\vdots & \vdots & \ddots & \vdots\\day_{n,1} & day_{n,2} & \cdots & day_{n,k}\\\end{matrix}\right]">
+</center>
 
+<p>We gonna compare the sales between each two products, for example, comparing product u and product v in 2016.</p>
+<br>
+
+<center>
+<img src="http://latex.codecogs.com/gif.latex?Product_u = \left[\begin{matrix}day_{u,1} & day_{u,2} & \cdots & day_{u,366}\\\end{matrix}\right]">
+</center>
+
+<br>
+
+<center>
+<img src="http://latex.codecogs.com/gif.latex?Product_v = \left[\begin{matrix}day_{v,1} & day_{v,2} & \cdots & day_{v,366}\\\end{matrix}\right]">
+</center>
+
+<p>Than we use a ‘Metric’ <strong>distance = metrix(Product_u, Product_v)</strong> to count the distance between two time series curve. Find out the the smallest distance between each two products as the refernece product.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##Findout the reference product for each products</span></span><br><span class="line"><span class="keyword">for</span> product_u <span class="keyword">in</span> products:</span><br><span class="line">    <span class="keyword">for</span> product_v <span class="keyword">in</span> products:</span><br><span class="line">        distance[product_u, product_v] = metrix(Product_u, Product_v)</span><br><span class="line">        </span><br><span class="line">reference_products = min(distance) <span class="keyword">for</span> everyrow</span><br></pre></td></tr></table></figure>
+
+<p>Code Here:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Using different kinds of methods to find the most similar product for each product in dataset</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reference</span><span class="params">(product_key, sales, metrix)</span>:</span></span><br><span class="line">    </span><br><span class="line">    m = product_key.shape</span><br><span class="line">    m = m[<span class="number">0</span>]</span><br><span class="line">    reference = np.zeros([m,<span class="number">1</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> product_index <span class="keyword">in</span> range(m):</span><br><span class="line">        distance = metrix(product_key[product_index], sales)</span><br><span class="line">        reference[product_index] = find_min_product(product_key[product_index], distance)</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> reference</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## find the min distance for product</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_min_product</span><span class="params">(product, distance)</span>:</span></span><br><span class="line">    </span><br><span class="line">    index = np.where(product_key==product)</span><br><span class="line">    index = index[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    distance[index] = <span class="number">10000000</span></span><br><span class="line">    min_index = np.argmin(distance)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> product_key[min_index]</span><br></pre></td></tr></table></figure>
+
+<h2 id="Euclidean-Metric"><a href="#Euclidean-Metric" class="headerlink" title="Euclidean Metric"></a>Euclidean Metric</h2><hr>
+<p>Firstly, we use euclidean metric to calculate the distance between products.</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?euclideanMetric[Product_u,Product_v] = \sqrt{\sum_{i=1}^k (day_{u,i} - day_{v,i})^2}">
+</center>
+
+<p>Then, we can have a reference matrix, which is looking like,</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?ReferenceProduct = \left[\begin{matrix}distance_{1,1} & distance_{1,2} & \cdots & distance_{1,n}\\distance_{2,1} & distance_{2,2} & \cdots & distance_{2,n}\\\vdots & \vdots & \ddots & \vdots\\distance_{n,1} & distance_{n,2} & \cdots & distance_{n,n}\\\end{matrix}\right]">
+</center>
+
+<p>PS: It is a <strong>Symmetric Matrices</strong> and the diagonal is 0(distance between same itself).</p>
+<p>Code Here:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## output the distance between a product and all the others</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">euclidean_metric</span><span class="params">(product, sales)</span>:</span></span><br><span class="line">    </span><br><span class="line">    index = np.where(product_key==product)</span><br><span class="line">    index = index[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    m, n = sales.shape</span><br><span class="line">    distance = np.zeros([m, <span class="number">1</span>])</span><br><span class="line">    diff = sales[index,:] - sales</span><br><span class="line">    distance = np.sqrt(np.sum(diff*diff, axis=<span class="number">1</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> distance</span><br></pre></td></tr></table></figure>
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
                 <source type="audio/mpeg" src="">

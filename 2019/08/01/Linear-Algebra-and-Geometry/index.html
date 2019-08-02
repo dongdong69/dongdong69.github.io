@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Linear Algebra and Geometry - Dong</title>
+    <title>Linear Algebra and Geometry(1) - Dong</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="Dongdong,"> 
-    
+    <meta name="description" content="What’s this post about
+I think most of us are familiar with Linear Algebra. This post, we connect L,"> 
     <meta name="author" content="John Doe"> 
     <link rel="alternative" href="atom.xml" title="Dong" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -35,7 +36,7 @@
     <div class="bar" style="width: 0;"></div>
     <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
     <div title="播放/暂停" class="icon-play"></div>
-    <h3 class="subtitle">Linear Algebra and Geometry</h3>
+    <h3 class="subtitle">Linear Algebra and Geometry(1)</h3>
     <div class="social">
         <!--<div class="like-icon">-->
             <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
@@ -53,14 +54,118 @@
     <div class="section">
         <div class="article">
     <div class='main'>
-        <h1 class="title">Linear Algebra and Geometry</h1>
+        <h1 class="title">Linear Algebra and Geometry(1)</h1>
         <div class="stuff">
             <span>八月 01, 2019</span>
             
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Computer-vision/">Computer vision</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Geometry/">Geometry</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Linear-Algebra/">Linear Algebra</a></li></ul>
+
 
         </div>
         <div class="content markdown">
-            
+            <h2 id="What’s-this-post-about"><a href="#What’s-this-post-about" class="headerlink" title="What’s this post about"></a>What’s this post about</h2><hr>
+<p>I think most of us are familiar with Linear Algebra. This post, we connect Linear Algebra with Geometry. Here, I recommend a video, which named <a href="https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw" target="_blank" rel="noopener">Linear Algebra</a>. You also can find it on bilibili, just sample search <strong>3Blue1Brown</strong>. I think it is one of the best video I can find talking about Linear Algebra and Calculus.</p>
+<p>More material about Linear Algebra:</p>
+<ul>
+<li><a href="http://cs229.stanford.edu/summer2019/cs229-linalg.pdf" target="_blank" rel="noopener">Linear Algebra</a></li>
+</ul>
+<h2 id="Why-combine-Linear-Algebra-with-Geometry"><a href="#Why-combine-Linear-Algebra-with-Geometry" class="headerlink" title="Why combine Linear Algebra with Geometry"></a>Why combine Linear Algebra with Geometry</h2><hr>
+<p>Because it is the basic of Computer vision. Most of the Computer Vision alg is do something on matrix. And Geometry on Linear Algebra will till you how those algs work. What’s more, Geometry can help you better understand Linear Algebra.</p>
+<h2 id="What-is-vector"><a href="#What-is-vector" class="headerlink" title="What is vector"></a>What is vector</h2><hr>
+<p>Vector is a list of numbers. which looks like,</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\left[\begin{matrix}1\\4\\7\end{matrix}
+\right]">
+</center>
+
+<p>Here we consider vector as a point or an arrow start from origin in n Dimension. n is depands on the length of vector. The first number tell us how far it parallel to x-axis. The second tell us how far it parallel to y-axis. When we add whose two vectors together. We move the second vector to the tail of the first vector.</p>
+<center>
+<img src="/images/LA/vector_add.png">
+</center>
+
+<p>So, the question is why <strong>adding</strong> proforms like that.</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\left[\begin{matrix}1\\2\end{matrix}\right] + \left[\begin{matrix}3\\-1\end{matrix}\right] = \left[\begin{matrix}1+3\\2-1\end{matrix}\right] = \left[\begin{matrix}4\\1\end{matrix}\right]">
+</center>
+
+<p>The first matrix tells us move 1 step right then move 2 steps up. The second metrix tells us to move 3 steps right then move 1 step down. And the add operation tells us we can separate those movement. Firstly, we do the operation on the x-axis then on the y-axis. We move 1 step right then 3 steps right which equal to move 4 steps right. We do the same thing on y-axis.</p>
+<h2 id="What-is-Linear-combination"><a href="#What-is-Linear-combination" class="headerlink" title="What is Linear combination"></a>What is Linear combination</h2><hr>
+<p>The linear combination of vector v and vector u shows like,</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?a\vec v + b\vec u">
+</center>
+
+<p>a and b here we called scalars. Usually we can use two vectors to reach everywhere on the plane except those two vectors line up or both of them are zero.</p>
+<ul>
+<li>“span” of vector v and vector w is the set of their linear combination.</li>
+</ul>
+<h2 id="What-is-linear-transformation"><a href="#What-is-linear-transformation" class="headerlink" title="What is linear transformation"></a>What is linear transformation</h2><hr>
+<ul>
+<li><p>lines remain lines</p>
+</li>
+<li><p>origin remains fixed</p>
+</li>
+</ul>
+<p>We consider i hat and j hat as the unit vector. And they are written as,</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\hat i">
+
+<br>
+
+<img src="http://latex.codecogs.com/gif.latex?\hat j">
+</center>
+
+<br>
+
+<p>Therefore, every vectors on this coordinate system can be written as,</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\left[\begin{matrix}5\\7\end{matrix}\right] = 5 * \hat{i} + 7 * \hat{j}">
+</center>
+
+<br>
+
+<p>Then we can consider linear transformation as changing those unit vectors. For example,</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\left[\begin{matrix}1\\2\end{matrix}\right]">
+</center>
+
+<br>
+
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\left[\begin{matrix}-3\\4\end{matrix}\right]">
+</center>
+
+<p>We can write them together as a 2x2 matrix,</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\left[\begin{matrix}1&-3\\2&4\end{matrix}\right]">
+</center>
+
+<p>we use those two vectors as our unit vectors. Then, according to the formual showing before, the new vector after transformation is,</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\left[\begin{matrix}5\\7\end{matrix}\right] = 5 * \hat{i} + 7 * \hat{j} = 5\left[\begin{matrix}1\\2\end{matrix}\right] + 7\left[\begin{matrix}-3\\4\end{matrix}\right]">
+</center>
+
+<p>Which has the same result with matrix multiplication,</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\left[\begin{matrix}1&-3\\2&4\end{matrix}\right]\left[\begin{matrix}5\\7\end{matrix}\right] = \left[\begin{matrix}5*1\\5*2\end{matrix}\right] + \left[\begin{matrix}7*-3\\7*4\end{matrix}\right]">
+</center>
+
+<p>It is interesting that we combine matrix multiplication with linear transformation. And it is also a very import idea in computer vision. Again, we make a conclusion, the 2 by 2 matrix tells where the unit vectors landing after transformation. And when we multiple it with a vector, the result tells where this vector landing afte transformation.</p>
+<h2 id="The-connection-between-computer-vision"><a href="#The-connection-between-computer-vision" class="headerlink" title="The connection between computer vision"></a>The connection between computer vision</h2><hr>
+<ul>
+<li><p>Rotation</p>
+<p>  The 2 by 2 transformation matrix can help us do the rotation and .</p>
+<p>  For example, if we want to de a 90 degree rotation counterclockwise to a image. All things we need to do is multiple all index of pixel in the image with the matrix below,</p>
+  <center>
+  <img src="http://latex.codecogs.com/gif.latex?\left[\begin{matrix}0&1\\-1&0\end{matrix}\right]">
+  </center>
+</li>
+<li><p>Shear</p>
+  <center>
+  <img src="http://latex.codecogs.com/gif.latex?\left[\begin{matrix}1&0\\1&1\end{matrix}\right]">
+  </center></li>
+</ul>
+
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
                 <source type="audio/mpeg" src="">

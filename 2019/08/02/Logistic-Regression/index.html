@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Logistic Regression - Dong</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Dongdong,"> 
+    <meta name="description" content="逻辑回归
+逻辑回归叫做回归，然而其并不是一个回归模型，其主要用于解决二分类问题（0 或者 1）。值得注意的是，虽然逻辑回归的结果在0和1之间，但他并不能够当作数学上的概率来使用。
+逻辑回归和线性回归,"> 
+    <meta name="author" content="John Doe"> 
+    <link rel="alternative" href="atom.xml" title="Dong" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">Dong</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">Logistic Regression</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Logistic Regression</h1>
+        <div class="stuff">
+            <span>八月 02, 2019</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Machine-Learning/">-Machine Learning</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="逻辑回归"><a href="#逻辑回归" class="headerlink" title="逻辑回归"></a>逻辑回归</h2><hr>
+<p>逻辑回归叫做回归，然而其并不是一个回归模型，其主要用于解决二分类问题（0 或者 1）。值得注意的是，虽然逻辑回归的结果在0和1之间，但他并不能够当作数学上的概率来使用。</p>
+<h2 id="逻辑回归和线性回归"><a href="#逻辑回归和线性回归" class="headerlink" title="逻辑回归和线性回归"></a>逻辑回归和线性回归</h2><hr>
+<p>逻辑回归和线性回归非常相似，他们之间的差别从公式上来看，逻辑回归无非是在线性回归的基础上加了一个sigmoid函数。逻辑回归通过sigmoid引入非线性因素，并利用sigmoid的特点（值域在[0,1]之间）得已解决二分类问题。</p>
+<p>从所解决的问题上来看，逻辑回归假设结果服从<strong>伯努利分布</strong>（二分布，0/1分布），而线性回归则假设结果服从<strong>高斯分布</strong>。</p>
+<h2 id="sigmoid"><a href="#sigmoid" class="headerlink" title="sigmoid"></a>sigmoid</h2><hr>
+<p>首先我们来看看什么是sigmoid，其图像如下，</p>
+<center>
+<img src="/images/sigmoid.png">
+</center>
+
+<p>其公式如下：</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?g(x) = \frac{1}{1+e^{-x}}">
+</center>
+
+<br>
+
+<p>倒数：</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?g(x)^{`} = g(x)(1-g(x))">
+</center>
+
+<h2 id="逻辑回归的推导过程手稿"><a href="#逻辑回归的推导过程手稿" class="headerlink" title="逻辑回归的推导过程手稿"></a>逻辑回归的推导过程手稿</h2><hr>
+<h2 id="逻辑回归的代码实现以及样例"><a href="#逻辑回归的代码实现以及样例" class="headerlink" title="逻辑回归的代码实现以及样例"></a>逻辑回归的代码实现以及样例</h2><hr>
+<p>我们用sklearn中的乳腺癌数据做一个实例，最后用我们实现的逻辑回归模型与sklearn中的进行对比。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_breast_cancer</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##读取数据</span></span><br><span class="line">breast_cancer = load_breast_cancer()</span><br><span class="line"></span><br><span class="line"><span class="comment">##获取数据的维度</span></span><br><span class="line">m,n = breast_cancer.data.shape</span><br><span class="line"><span class="comment">##维度加一，最后一列用于存放目标值</span></span><br><span class="line">data = np.zeros([m,n+<span class="number">1</span>])</span><br><span class="line">data[:,:<span class="number">-1</span>] = breast_cancer.data</span><br><span class="line">data[:,<span class="number">-1</span>] = breast_cancer.target</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##打乱顺序</span></span><br><span class="line">np.random.shuffle(data)</span><br><span class="line"><span class="comment">##分离训练集和数据集</span></span><br><span class="line">test = data[:<span class="number">150</span>,:]</span><br><span class="line">train = data[<span class="number">150</span>:,:]</span><br><span class="line">test_y = test[:,<span class="number">-1</span>:]</span><br><span class="line">test_x = test[:,:<span class="number">-1</span>]</span><br><span class="line">train_y = train[:,<span class="number">-1</span>:]</span><br><span class="line">train_x = train[:,:<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+
+<p>接下来，我们根据推导的公式实现sigmoid函数以及逻辑回归的梯度下降，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>/(<span class="number">1</span> + np.exp(-x))</span><br><span class="line"></span><br><span class="line"><span class="comment">##X为训练集数据，Y为训练集目标</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gradient_descent</span><span class="params">(X, Y)</span>:</span></span><br><span class="line">    m,n = X.shape</span><br><span class="line">    alpha=<span class="number">0.01</span></span><br><span class="line">    W = np.ones((n,<span class="number">1</span>))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">50000</span>):</span><br><span class="line">        h = np.dot(X, W)</span><br><span class="line">        error = sigmoid(h) - Y</span><br><span class="line">        W = W - alpha * np.dot(X.T, error)</span><br><span class="line">    <span class="keyword">return</span> W</span><br></pre></td></tr></table></figure>
+
+<p>测试结果，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##计算参数值</span></span><br><span class="line">w = gradient_descent(train_x, train_y)</span><br><span class="line"><span class="comment">##预测结果</span></span><br><span class="line">y_pred = sigmoid(np.dot(test[:,:<span class="number">-1</span>], w))</span><br><span class="line"><span class="comment">##这里我们简单的计算一下预测的准确率</span></span><br><span class="line">error = y_pred - test_y</span><br><span class="line">error[error==<span class="number">0</span>].size/error.size</span><br></pre></td></tr></table></figure>
+
+<p>结果输出如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0.9266666666666666</span><br></pre></td></tr></table></figure>
+
+<p>在sklearn的数据集上面，准确率达到了93%。</p>
+<p>对比sklearn封装好了的逻辑回归模型，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line">lr = LogisticRegression(C=<span class="number">1.0</span>, random_state=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">ppn = lr.fit(train_x, train_y)</span><br><span class="line"></span><br><span class="line">y_pred = ppn.predict(test_x)</span><br></pre></td></tr></table></figure>
+
+<p>结果输出如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">e = y_pred - test_y[:,<span class="number">0</span>]</span><br><span class="line">e[e==<span class="number">0</span>].size/e.size</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0.9533333333333334</span><br></pre></td></tr></table></figure>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title='0' data-url='http://link.hhtjim.com/163/5146554.mp3'></li>
+                    
+                        <li title='1' data-url='http://link.hhtjim.com/qq/001faIUs4M2zna.mp3'></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

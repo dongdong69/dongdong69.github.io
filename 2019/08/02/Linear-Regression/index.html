@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+<html lang class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Linear Regression - Dong</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Dongdong,"> 
+    <meta name="description" content="多元线性回归
+在多元线性回归中，我们寻找一个可以匹配输入数据到结果的方法。每一个输入数据都是一个具有m个特征的特征向量,
+
+
+
+
+我们用矩阵X来表示所有的输入数据，矩阵中的每一行为一个数据记录，一共,"> 
+    <meta name="author" content="John Doe"> 
+    <link rel="alternative" href="atom.xml" title="Dong" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">Dong</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">Linear Regression</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Linear Regression</h1>
+        <div class="stuff">
+            <span>八月 02, 2019</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Machine-Learning/">-Machine Learning</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="多元线性回归"><a href="#多元线性回归" class="headerlink" title="多元线性回归"></a>多元线性回归</h2><hr>
+<p>在多元线性回归中，我们寻找一个可以匹配输入数据到结果的方法。每一个输入数据都是一个具有m个特征的特征向量,</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\vec{x} = \left(x_1, x_2, \cdots, x_m\right)">
+</center>
+
+<p>我们用矩阵X来表示所有的输入数据，矩阵中的每一行为一个数据记录，一共有n条记录。向量y为我们的预测值，他们的表示如下,</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?X = \left[\begin{matrix}1 & x_{1,1} & x_{1,2} & \cdots & x_{1,m}\\1 & x_{2,1} & x_{2,2} & \cdots & x_{2,m}\\1 & \vdots & \vdots & \ddots & \vdots\\1 & x_{n,1} & x_{n,2} & \cdots & x_{n,m}\\\end{matrix}\right]">
+</center>
+
+<br>
+<br>
+
+<center>
+<img src="http://latex.codecogs.com/gif.latex?    \vec{y} = \left[\begin{matrix}y_1\\y_2\\\vdots\\y_n\\\end{matrix}\right]">
+</center>
+
+<br>
+
+<p>第i条数据记录表示为:</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?x_i = \left[\begin{matrix}1 & x_{i,1} & x_{i,2} & \cdots & x_{i,m}\\\end{matrix}\right]">
+</center>
+
+<br>
+
+<p>我们寻找一个向量$\hat{\beta}$使得$X\hat{\beta}$尽可能的靠近y。y为我们的真实值。</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\hat{\beta} = \left[\begin{matrix}\beta_0\\\beta_1\\\vdots\\\beta_m\\\end{matrix}\right]">
+</center>
+
+<br>
+<br>
+
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\hat{y} = x \cdot \hat{\beta} = \beta_0 + \beta_1x_1 + \beta_1x_1 + \cdots + \beta_mx_m">
+</center>
+
+<p>在最小二乘线性回归模型中，其损失函数为:</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?cost = \sum_{i=1}^{n}({y_i} - \hat{y_i})^2 =\sum_{i=1}^{n}({y_i} - x_i\hat{\beta})^2">
+</center>
+
+<br>
+<br>
+
+<p>当损失函数最小时，我们就找到了$\vec{\beta}$。<br>已知$({y_i} - x_i\hat{\beta})^2$为凸函数，多个凸函数之和，任然为凸函数。<br>那么我们只需令损失函数求对$\hat{\beta}$， 倒数为零时，我们有最小值。</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?cost = ||y - X\hat{\beta}|| = (y - X\hat{\beta})^T(y - X\hat{\beta})">
+</center>
+
+<br>
+
+<p>求导：</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\begin{align}\frac {\sigma cost}{\sigma \hat{\beta}} &= y^Ty - y^TX\hat{\beta} - \hat{\beta}^TX^Ty + X^TX\hat{\beta}^T\hat{\beta} &= 0\\\frac {\sigma cost}{\sigma \hat{\beta}} &= -2X^Ty + 2X^TX\hat{\beta} &= 0\\X^Ty &= X^TX\hat{\beta}\end{align}">
+</center>
+
+<h2 id="样例（房价预测）"><a href="#样例（房价预测）" class="headerlink" title="样例（房价预测）"></a>样例（房价预测）</h2><hr>
+<p>我将用于此示例的数据集是Windsor房价数据集，其中包含有关安大略省温莎市区房屋销售的信息。 输入变量涵盖了可能对房价产生影响的一系列因素，例如批量大小，卧室数量以及各种设施的存在。<br><br><br>我从<a href="https://vincentarelbundock.github.io/Rdatasets/datasets.html" target="_blank" rel="noopener">这个网站</a>下载了数据集，该网站提供了大量涵盖大量主题的数据集。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="comment">#dataframes</span></span><br><span class="line">housing_df = pd.read_csv(<span class="string">'Housing.csv'</span>, delimiter = <span class="string">','</span>)</span><br></pre></td></tr></table></figure>
+
+<p>从数据集中获取数据矩阵X以及房价的结果y</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#dataframe 转 np矩阵</span></span><br><span class="line">data = np.array(housing_df)</span><br><span class="line"><span class="comment">#获取所有房价信息，作为y值</span></span><br><span class="line">y = data[:,<span class="number">-1</span>]</span><br><span class="line"><span class="comment">#获取特征值矩阵</span></span><br><span class="line">X = data[:,:<span class="number">-1</span>]</span><br><span class="line"><span class="comment">#将最后10条数据取出来作为测试集</span></span><br><span class="line">n_train = len(y) - <span class="number">10</span></span><br><span class="line"><span class="comment">#y的训练集和预测集</span></span><br><span class="line">y_train = y[:<span class="number">-10</span>] <span class="comment"># &gt;&gt;&gt; shape(536,)</span></span><br><span class="line">y_test = y[<span class="number">-10</span>:]<span class="comment"># &gt;&gt;&gt; shape(10,)</span></span><br><span class="line"><span class="comment">#构造数据的矩阵</span></span><br><span class="line">X_train = X[:<span class="number">-10</span>, :] <span class="comment"># &gt;&gt;&gt; shape(536, 11)</span></span><br><span class="line">X_test = X[<span class="number">-10</span>:, :] <span class="comment"># &gt;&gt;&gt; shape(10, 11)</span></span><br><span class="line"><span class="comment">#添加一列1</span></span><br><span class="line">X_train = np.c_[np.ones((X_train.shape[<span class="number">0</span>], <span class="number">1</span>)), X_train]</span><br><span class="line">X_test = np.c_[np.ones((<span class="number">10</span>, <span class="number">1</span>)), X_test]</span><br></pre></td></tr></table></figure>
+
+<p>利用我们在上文中得到的公式,</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?X^Ty = X^TX\hat{\beta}">
+</center>
+
+<br>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#利用线性方程组求解beta</span></span><br><span class="line">beta = np.linalg.solve(np.dot(X_train.T, X_train), np.dot(X_train.T, y_train))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">y_hat = np.dot(X_test, beta)</span><br><span class="line"><span class="keyword">for</span> idx, val <span class="keyword">in</span> enumerate(y_hat):</span><br><span class="line">    print(<span class="string">'prediction = '</span>+str(val)+<span class="string">' actual = '</span>+str(y_test[idx]))</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">prediction = 97360.65509691092 actual = 82500</span><br><span class="line">prediction = 71774.16590136984 actual = 83000</span><br><span class="line">prediction = 92359.0891976023 actual = 84000</span><br><span class="line">prediction = 77748.274237906 actual = 85000</span><br><span class="line">prediction = 91015.59030664091 actual = 85000</span><br><span class="line">prediction = 97545.11790473228 actual = 91500</span><br><span class="line">prediction = 97360.65509691092 actual = 94000</span><br><span class="line">prediction = 106006.80075598106 actual = 103000</span><br><span class="line">prediction = 92451.69312694679 actual = 105000</span><br><span class="line">prediction = 73458.29493810149 actual = 105000</span><br></pre></td></tr></table></figure>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title='0' data-url='http://link.hhtjim.com/163/5146554.mp3'></li>
+                    
+                        <li title='1' data-url='http://link.hhtjim.com/qq/001faIUs4M2zna.mp3'></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

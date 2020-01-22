@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Linear-Algebra-and-Geometry(2) - Dong</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Dongdong,"> 
+    <meta name="description" content="What is the geometry meaning of determinant
+Determinant of matrix A is written as det(A).
+One expla,"> 
+    <meta name="author" content="John Doe"> 
+    <link rel="alternative" href="atom.xml" title="Dong" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">Dong</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">Linear-Algebra-and-Geometry(2)</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Linear-Algebra-and-Geometry(2)</h1>
+        <div class="stuff">
+            <span>八月 28, 2019</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Computer-vision/">Computer vision</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Geometry/">Geometry</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Linear-Algebra/">Linear Algebra</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="What-is-the-geometry-meaning-of-determinant"><a href="#What-is-the-geometry-meaning-of-determinant" class="headerlink" title="What is the geometry meaning of determinant"></a>What is the geometry meaning of determinant</h2><hr>
+<p>Determinant of matrix A is written as det(A).</p>
+<p>One explanation of determinant is the directed area or directed volume of a superparallel polyhedron composed of rows or column vectors in the determinant. Usually, it is composed of column vectors.</p>
+<p>Another explanation is that determinant tells the scaling of area or volume of linear transformation.</p>
+<p>for example,</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\left|\begin{matrix}2&3\\2&4\end{matrix}\right| = 2">
+</center>
+
+<p>tells the scaling factor is 2, which means every area in this linear system, transformed by this matrix will doubled.</p>
+<h3 id="How-to-calculate-determinant"><a href="#How-to-calculate-determinant" class="headerlink" title="How to calculate determinant"></a>How to calculate determinant</h3><center>
+<img src="http://latex.codecogs.com/gif.latex?\left|\begin{matrix}2&3\\2&4\end{matrix}\right| = 2*4 - 3*2 = 2">
+</center>
+
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\left|\begin{matrix}a&b\\c&d\end{matrix}\right| = (a+b)(c+d) - ac - bd - 2bc= ad - bc">
+</center>
+
+<p>here is a diagram helps we understand geometry meaning of its calculation.</p>
+<center>
+<img src="/images/LA/det.png">
+</center>
+
+<h3 id="Why-we-said-it-is-directed"><a href="#Why-we-said-it-is-directed" class="headerlink" title="Why we said it is directed"></a>Why we said it is directed</h3><p>According to the calculation formular above, we can see that there is a chance to get a negative value by determinant. When the determinant of matrix is negative, it means the transformation flips space over. Imagining a 2-D space as a pice of paper. A transformation like that one seems to turn over that sheet onto the other side.</p>
+<h2 id="transformation-by-nonsquare-matrices"><a href="#transformation-by-nonsquare-matrices" class="headerlink" title="transformation by nonsquare matrices"></a>transformation by nonsquare matrices</h2><hr>
+<p>for example we have a matrix like,</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\left[\begin{matrix}3&1\\4&1\\5&9\end{matrix}\right]">
+</center>
+
+<p>The first column tells the i hat landed and the second one tells where is j hat. A transformation likes that takes 2d space as input and output in 3d. In other words, it mapping two dimensions to three dimensions.</p>
+<p>To the opposite,</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\left[\begin{matrix}3&1&3\\4&1&1\end{matrix}\right]">
+</center>
+
+<p>it mapping three dimensions to two dimensions.</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title='0' data-url='http://link.hhtjim.com/163/5146554.mp3'></li>
+                    
+                        <li title='1' data-url='http://link.hhtjim.com/qq/001faIUs4M2zna.mp3'></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

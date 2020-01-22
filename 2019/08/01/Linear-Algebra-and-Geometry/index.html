@@ -150,19 +150,14 @@ I think most of us are familiar with Linear Algebra. This post, we connect L,">
 <img src="http://latex.codecogs.com/gif.latex?\left[\begin{matrix}1&-3\\2&4\end{matrix}\right]\left[\begin{matrix}5\\7\end{matrix}\right] = \left[\begin{matrix}5*1\\5*2\end{matrix}\right] + \left[\begin{matrix}7*-3\\7*4\end{matrix}\right]">
 </center>
 
-<p>It is interesting that we combine matrix multiplication with linear transformation. And it is also a very import idea in computer vision. Again, we make a conclusion, the 2 by 2 matrix tells where the unit vectors landing after transformation. And when we multiple it with a vector, the result tells where this vector landing afte transformation.</p>
+<p>It is interesting that we combine matrix multiplication with linear transformation. And it is also a very important idea in computer vision. Again, we make a conclusion, the 2 by 2 matrix tells where the unit vectors landing after transformation. And when we multiple it with a vector, the result tells where this vector landing afte transformation.</p>
 <h2 id="The-connection-between-computer-vision"><a href="#The-connection-between-computer-vision" class="headerlink" title="The connection between computer vision"></a>The connection between computer vision</h2><hr>
 <ul>
 <li><p>Rotation</p>
-<p>  The 2 by 2 transformation matrix can help us do the rotation and .</p>
+<p>  The 2 by 2 transformation matrix can help us do the rotation.</p>
 <p>  For example, if we want to de a 90 degree rotation counterclockwise to a image. All things we need to do is multiple all index of pixel in the image with the matrix below,</p>
   <center>
   <img src="http://latex.codecogs.com/gif.latex?\left[\begin{matrix}0&1\\-1&0\end{matrix}\right]">
-  </center>
-</li>
-<li><p>Shear</p>
-  <center>
-  <img src="http://latex.codecogs.com/gif.latex?\left[\begin{matrix}1&0\\1&1\end{matrix}\right]">
   </center></li>
 </ul>
 

@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Regression Tree - Dong</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Dongdong,"> 
+    <meta name="description" content="写在开头
+决策树又分为两类：分类决策树与回归决策树。前者大多数人都十分熟悉，然后后者却很少被提及。现在我们有很多的树形回归算法（随机森林、GBDT、XGBoost等），在机器学习领域都占据着十分重要,"> 
+    <meta name="author" content="John Doe"> 
+    <link rel="alternative" href="atom.xml" title="Dong" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">Dong</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">Regression Tree</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Regression Tree</h1>
+        <div class="stuff">
+            <span>八月 14, 2019</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Regression/">Regression</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Tree/">Tree</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="写在开头"><a href="#写在开头" class="headerlink" title="写在开头"></a>写在开头</h2><hr>
+<p>决策树又分为两类：分类决策树与回归决策树。前者大多数人都十分熟悉，然后后者却很少被提及。现在我们有很多的树形回归算法（随机森林、GBDT、XGBoost等），在机器学习领域都占据着十分重要的地位。因此十分有必要详细了解一下他们的起源，回归树。</p>
+<h2 id="树的分裂"><a href="#树的分裂" class="headerlink" title="树的分裂"></a>树的分裂</h2><hr>
+<p>在分类决策树中，我们有三种分裂方式，信息增益，信息增益比和基尼系数。</p>
+<center>
+<img src="/images/回归树/dt_type.png">
+</center>
+
+<p>与分类决策树不同的是，回归数的输入以及输出都是数值类型的。假设我们的数据有n个特征。我们会选择最佳的分裂特征和他的分裂点，形如（k，s），第k个特征和分裂点s。接着我们会根据这个分裂点将数据分裂为两个集合。集合1的第k个属性小于s，集合2的第k个属性大于s。他们的对应的输出分别为集合的平均值。</p>
+<h2 id="分裂点的选择"><a href="#分裂点的选择" class="headerlink" title="分裂点的选择"></a>分裂点的选择</h2><hr>
+<p>我们需要一个方法来定义最佳的分裂点。这里我们采取的方法是平方误差最小化。比方说我们有{1，2，3，4，5，6，7}包含7个数据的数据集合。第一次分裂，我们用（k，s），将数据分裂为{1，3，4}和{2，5，6，7}。分别计算两个集合的target平均值。然后分别在两个集合中计算他们和均值的平方误差和，再将两个集合得到的结果加起来。这样我们就得到了（k，s）下的平方损失和，记作m（k，s）。</p>
+<p>接着我们遍历所有的特征和其所对应的值，找到其中最小的平方损失和的特征k和误差s。这个就是我们当前所要的分裂点。</p>
+<h2 id="递归和树的结果输出"><a href="#递归和树的结果输出" class="headerlink" title="递归和树的结果输出"></a>递归和树的结果输出</h2><hr>
+<p>采用上述的方法，我们递归的进行数的分裂，直到我们达到最大分裂点或者当前节点无法在进行分裂。而每一个叶子节点所对应的集合的target平均值，就被做为该节点的输出。</p>
+<center>
+<img src="/images/回归树/dt_regression.png">
+</center>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><hr>
+<p>分类决策树与回归决策树十分相似，他们的主要不同是在分裂节点的选择方式和结果的输出上。回归决策树，分枝时穷举每一个特征的每一个阈值，来寻找最优切分特征j和最优切分点s，衡量的方法是平方误差最小化。输出时候，将叶子节点下的集合平均值作为输出。</p>
+<p>然而单一回归树的效果是十分不理想的，于是基于集成学习的思想，我们有了随机森林回归(基于 Bagging)，以及GBDT(Gradient Boosting Decision Tree，基于 Boosting)。Bagging与Boosting属于集成方法。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title='0' data-url='http://link.hhtjim.com/163/5146554.mp3'></li>
+                    
+                        <li title='1' data-url='http://link.hhtjim.com/qq/001faIUs4M2zna.mp3'></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

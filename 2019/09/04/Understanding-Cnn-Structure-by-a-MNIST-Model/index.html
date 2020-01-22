@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html lang class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Understanding Cnn Structure by a MNIST Model - Dong</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Dongdong,"> 
+    <meta name="description" content="前言
+本文希望通过一个手写数字的模型，帮助我们理解基本的卷积神经网络中都包含有那些结构。 网络来自于Kaggle上Aditya Soni所分享的一个模型，其链接如下，
+MNIST with Kera,"> 
+    <meta name="author" content="John Doe"> 
+    <link rel="alternative" href="atom.xml" title="Dong" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">Dong</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">Understanding Cnn Structure by a MNIST Model</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Understanding Cnn Structure by a MNIST Model</h1>
+        <div class="stuff">
+            <span>九月 04, 2019</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Computer-vision/">Computer vision</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><hr>
+<p>本文希望通过一个手写数字的模型，帮助我们理解基本的卷积神经网络中都包含有那些结构。 网络来自于Kaggle上Aditya Soni所分享的一个模型，其链接如下，</p>
+<p><a href="https://www.kaggle.com/adityaecdrid/mnist-with-keras-for-beginners-99457" target="_blank" rel="noopener">MNIST with Keras for Beginners(.99457)</a></p>
+<p>原文中并没有对网络结构有过多的解释，主要是以给出代码为主。那么本文将结合我所学的知识，对网络的结构做一个前线的分析，介绍每一层组要是做什么的。</p>
+<h2 id="Keras"><a href="#Keras" class="headerlink" title="Keras"></a>Keras</h2><hr>
+<p>这篇Kaggle的notebook使用了Keras。</p>
+<p>Keras是一个高级的神经网络api，这里的高级并不是说他很叼(当然了，他也挺叼的)，而值得是他非常的贴近用户。使用Keras有非常多的有点。比方说，它允许你使用不同的内核(TensorFlow, CNTK和Theano)。同时支持卷积和循环神经网络。CPU和GPU无缝切换，然而对于我来说并没有什么卵用(公司的电脑压根就没有独立显卡，小声BB)。</p>
+<p>但是我们今天的重点并不是Keras，如果有机会，我们会着重介绍。</p>
+<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><hr>
+<p>直接上代码(别人的代码)，该模型在MNIST上有不俗的表现，得分在0.995+<br>模型代码比较长咱们一点点来看，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tensorflow.python.keras.layers <span class="keyword">import</span> Input , Dense , Conv2D , Activation , Add,ReLU,MaxPool2D,Flatten,Dropout,BatchNormalization</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.keras.models <span class="keyword">import</span> Model</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">input = Input(shape=[<span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>])</span><br><span class="line">x = Conv2D(<span class="number">32</span>, (<span class="number">5</span>, <span class="number">5</span>), strides=<span class="number">1</span>, padding=<span class="string">'same'</span>, name=<span class="string">'conv1'</span>)(input)</span><br><span class="line">x = BatchNormalization(momentum=<span class="number">0.1</span>, epsilon=<span class="number">1e-5</span>, gamma_initializer=<span class="string">'uniform'</span>,name=<span class="string">'batch1'</span>)(x)</span><br><span class="line">x = Activation(<span class="string">'relu'</span>, name=<span class="string">'relu1'</span>)(x)</span><br><span class="line"></span><br><span class="line">x = Conv2D(<span class="number">32</span>, (<span class="number">5</span>, <span class="number">5</span>), strides=<span class="number">1</span>, padding=<span class="string">'same'</span>, name=<span class="string">'conv2'</span>)(x)</span><br><span class="line">x = BatchNormalization(momentum=<span class="number">0.1</span>, epsilon=<span class="number">1e-5</span>, gamma_initializer=<span class="string">'uniform'</span>,name=<span class="string">'batch2'</span>)(x)</span><br><span class="line">x = Activation(<span class="string">'relu'</span>, name=<span class="string">'relu2'</span>)(x)</span><br><span class="line"></span><br><span class="line">x = Conv2D(<span class="number">32</span>, (<span class="number">5</span>, <span class="number">5</span>), strides=<span class="number">1</span>, padding=<span class="string">'same'</span>, name=<span class="string">'conv2add'</span>)(x)</span><br><span class="line">x = BatchNormalization(momentum=<span class="number">0.1</span>, epsilon=<span class="number">1e-5</span>, gamma_initializer=<span class="string">'uniform'</span>,name=<span class="string">'batch2add'</span>)(x)</span><br><span class="line">x = Activation(<span class="string">'relu'</span>, name=<span class="string">'relu2add'</span>)(x)</span><br><span class="line">x = Dropout (<span class="number">0.15</span>)(x)</span><br><span class="line">x = MaxPool2D(pool_size=<span class="number">2</span>, strides=<span class="number">2</span>, padding=<span class="string">'same'</span>)(x)</span><br><span class="line">x = Conv2D(<span class="number">64</span>, (<span class="number">3</span>, <span class="number">3</span>), strides=<span class="number">1</span>, padding=<span class="string">'same'</span>, name=<span class="string">'conv3'</span>)(x)</span><br><span class="line">x = BatchNormalization(momentum=<span class="number">0.1</span>, epsilon=<span class="number">1e-5</span>, gamma_initializer=<span class="string">'uniform'</span>,name=<span class="string">'batch3'</span>)(x)</span><br><span class="line">x = Activation(<span class="string">'relu'</span>, name=<span class="string">'relu3'</span>)(x)</span><br><span class="line">x = Conv2D(<span class="number">64</span>, (<span class="number">3</span>, <span class="number">3</span>), strides=<span class="number">1</span>, padding=<span class="string">'same'</span>, name=<span class="string">'conv4'</span>)(x)</span><br><span class="line">x = BatchNormalization(momentum=<span class="number">0.1</span>, epsilon=<span class="number">1e-5</span>, gamma_initializer=<span class="string">'uniform'</span>,name=<span class="string">'batch4'</span>)(x)</span><br><span class="line">x = Activation(<span class="string">'relu'</span>, name=<span class="string">'relu4'</span>)(x)</span><br><span class="line">x = Conv2D(<span class="number">32</span>, (<span class="number">3</span>, <span class="number">3</span>), strides=<span class="number">1</span>, padding=<span class="string">'same'</span>, name=<span class="string">'conv5'</span>)(x)</span><br><span class="line">x = BatchNormalization(momentum=<span class="number">0.1</span>, epsilon=<span class="number">1e-5</span>, gamma_initializer=<span class="string">'uniform'</span>,name=<span class="string">'batch5'</span>)(x)</span><br><span class="line">x = Activation(<span class="string">'relu'</span>, name=<span class="string">'relu5'</span>)(x)</span><br><span class="line">x = Dropout (<span class="number">0.15</span>)(x)</span><br><span class="line">x = MaxPool2D(pool_size=<span class="number">2</span>, strides=<span class="number">2</span>)(x)</span><br><span class="line">x = Flatten()(x)</span><br><span class="line">x = Dense(<span class="number">100</span>, name=<span class="string">'Dense30'</span>)(x)</span><br><span class="line">x = Activation(<span class="string">'relu'</span>, name=<span class="string">'relu6'</span>)(x)</span><br><span class="line">x = Dropout (<span class="number">0.05</span>)(x)</span><br><span class="line">x = Dense(<span class="number">10</span>, name=<span class="string">'Dense10'</span>)(x)</span><br><span class="line">x = Activation(<span class="string">'softmax'</span>)(x)</span><br><span class="line">model = Model(inputs = input, outputs =x)</span><br><span class="line"></span><br><span class="line">print(model.summary())</span><br></pre></td></tr></table></figure>
+
+<p>首先是，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">input = Input(shape=[<span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+
+<p>MNIST中图片大小为28乘28的灰度图像，因此CNNde输入shape为[28,28,1]</p>
+<p>接着是卷积层</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = Conv2D(<span class="number">32</span>, (<span class="number">5</span>, <span class="number">5</span>), strides=<span class="number">1</span>, padding=<span class="string">'same'</span>, name=<span class="string">'conv1'</span>)(input)</span><br></pre></td></tr></table></figure>
+
+<p>我们来逐一解读每一个参数：</p>
+<ul>
+<li><p>32：32 表示这个卷积层中一共需要训练32个卷积核心</p>
+</li>
+<li><p>(5,5) 每个卷积核心的大小为5乘5</p>
+</li>
+<li><p>strides：表示每次卷积核移动的距离，strides=1表示每次移动一个像素</p>
+</li>
+<li><p>padding：卷积核的移动范围，种类一共有三种，</p>
+<ul>
+<li><p><strong>padding=’full’</strong></p>
+  <center><img src="/images/MNIST/full.png"></center>
+
+<p>  当卷积核与图像刚刚相交的时候就开始做卷积运算，空白的部分补0，可以预见的就是，full模式将使得输出shape扩大。</p>
+</li>
+<li><p><strong>padding=’same’</strong></p>
+  <center><img src="/images/MNIST/full.jpg"></center>
+
+<p>  当卷积核的中心与图片的边重合的时候开始做卷积运算，same模式下，输出将位置输入时候的shape。采用same模式的好处有很多。比方说，对比valid他将保留更多的图片特征。同时保持shape有助于我们控制网络的输入输出的shape。并且，我们可以没有顾虑的加深网络。</p>
+</li>
+<li><p><strong>padding=’valid’</strong></p>
+  <center><img src="/images/MNIST/valid.jpg"></center>
+
+<p>  当全部的卷积核在图片里面的时候，开始做卷积运算，valid模式下输出的shape将变小。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>该层中我们需要计算的参数数量有：</p>
+<pre><code>5 * 5 * 32 + 32 = 832
+
+前面的5乘5为我们的卷积核大小，而这样的卷积核我们一共有32个，最后我们还要加上32个bias，每一个卷积核对应一个。</code></pre><p>更多的关于卷积层的作用在convolution and pooling博文中能看到，这里就不再累述。</p>
+<p>接下来是标准化层，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = BatchNormalization(momentum=<span class="number">0.1</span>, epsilon=<span class="number">1e-5</span>, gamma_initializer=<span class="string">'uniform'</span>,name=<span class="string">'batch1'</span>)(x)</span><br></pre></td></tr></table></figure>
+
+<p>Reference:</p>
+<ul>
+<li><a href="http://proceedings.mlr.press/v37/ioffe15.pdf" target="_blank" rel="noopener">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></li>
+</ul>
+<p>首先我们来看一下标准化的运算公式，</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\hat{x_i} = \frac{x_i - \mu_x}{\sqrt{\sigma^2 + \epsilon}}">
+</center>
+
+<p>其中，</p>
+<ul>
+<li><p>均值mu</p>
+  <center>
+  <img src="http://latex.codecogs.com/gif.latex?\mu = \frac{1}{m}\sum_{i=1}^mx_i">
+  </center>
+
+<p>  m 所指的是 mini-batch mean，我们知道在训练的过程中，我们每次是送一批图片进入模型进行训练，就是我们的batch size。我们所求的的均值是，不同数据的同一特征的均值。对于图形来说的话，就是求在同一batch下不同图片的同一特征图的均值和方差。</p>
+</li>
+<li><p>方差sigma</p>
+  <center>
+  <img src="http://latex.codecogs.com/gif.latex?\sigma^2 = \frac{1}{m}\sum_{i=1}^m(x_i - \mu)^2">
+  </center>
+
+<p>  同理，我们所求的是mini-batch variance。</p>
+</li>
+<li><p>防止处理错误的epsilon</p>
+<p>  我们会在分母加上一个极小的浮点数，从而防止除零错误。</p>
+</li>
+</ul>
+<p>最终，标准化即使得其输出数据的均值接近0，其标准差接近1。</p>
+<p>然而，标准化层的过程并没有这么简单，若是简单的在卷积神经网络中加上标准化我想早就有人想到了。没有这么做的原因是，单纯的在学习特征之后加上标准化，会使得我们损失很多的信息，同时会使得我们的数据在标准化之后又落在了激活函数的线性区域(tanh, sigmoid)，使得激活函数的作用降低。</p>
+<p>最后我们的科学家们想到一个办法，既然存在信息的损失，那我们就将他还原就好了。于是就有了标准化层的最后一步，</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?y_i=\gamma\hat{x_i} + \beta">
+</center>
+
+<p>yi即为标准化层的最后输出。gamma以及beta为需要学习的参数，他们起到scale以及shift的作用。</p>
+<p>标准化以后，使得我们的模型能够拥有更好的鲁棒性，提高模型的识别率，加速模型的收敛速度。并有助于解决梯度消失以及梯度爆炸的问题(每一层的分布都比较稳定)。</p>
+<p>我们再来看一看标准化层的参数，</p>
+<ul>
+<li><p>momentum: “移动均值和移动方差的动量”(keras中文文档上的说明)，不知道说的是个啥。我们再来看看另一篇文档，“在按特征规范化时，计算数据的指数平均数和标准差时的动量”，还是不知道在说啥。默认值为0.99。查了很多资料，说得都是摸棱两可。我的理解是，均值和方差不是不变的，随着新的batch的加入，均值和方差一直在“滑动”更新，那么什么是滑动更新呢，</p>
+<p>  比方说，第一个batch我们记作，batch^(1)(不能够在行内用latex，写作batch上标(1))。batch^1通过标准化层，我们计算得到均值mu^(1)和方差sigma^2^(1)。当新的batch^(2)进来时，我们需要更新我们的mu和sigma，其更新公式如下，</p>
+<p>  (mu^(1), sigma^2^(1)) * momentum + (mu^(2), sigma^2^(2)) * (1 - momentum)</p>
+<p>  于是我们就可以得到一组新的均值和方差。其中值得一提的是，均值与方差只在训练的时候更新，在测试的时候这两个值不再改变。</p>
+<p>  在一篇文章中我看到momentum值的设置与stpe之间的关系，文章我现在找不到了。momentum(0.9, 0.99, 0.999)分别对应step(100, 1000, 10000)。也就是说当我们有足够多的steps的时候，我们可以采用更高精度的momentum。</p>
+</li>
+<li><p>epsilon：就是上面我们介绍过的，增加到方差的小的浮点数，以避免除以零。</p>
+</li>
+<li><p>gamma_initializer：gamma的初始化方法。</p>
+</li>
+</ul>
+<p>现在我们来看看标准化层的参数数量，通过前文的叙述，我们知道标准化曾一共有4个参数，并且通过上一个卷积层，为每一张图片产生了32个特征图。因此该标准化层，我们一共有，</p>
+<pre><code>32 * 4 = 128</code></pre><p>个参数需要计算。</p>
+<p>如果我们输出这个model的结构我的我们会发现，他有64个non-taninned参数，其原因是只有lammda和beta是要通过训练计算的，而方差和均值是可以直接计算得到。</p>
+<p>对了还有一点就是关于标准化层在CNN神经网络的位置，一般来说会被放在卷积层与激活层之间。</p>
+<p>至此，我们的标注化层算是终于介绍完了。</p>
+<p>接下来，终于到了我们十分熟悉的激活函数，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = Activation(<span class="string">'relu'</span>, name=<span class="string">'relu1'</span>)(x)</span><br></pre></td></tr></table></figure>
+
+<p>这里我就不准备对激活函数做太多介绍了，一般来说在CNN中，激活函数我们使用relu。在CNN的最后，如果我们的模型是二分类，我们可以使用sigmoid或者tanh。如果是多分类，那么最后一层就是softmax。</p>
+<p>然后我们可以看到模型对这个结构重复了3次，卷积层+标准化层+激活层。我们可以将一个这样的结构看作是一个弱的特征提取器，那么多个提取器的叠加就像是Boosting，使得我们可以得到更好的特征。</p>
+<p>再之后的是，Dropout，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = Dropout (<span class="number">0.15</span>)(x)</span><br></pre></td></tr></table></figure>
+
+<p>有点像是我们随机森林中随机选择特征的过程。在这里我们是随机的“丢弃”了15%的特征矩阵。但其实不是真正意义上的丢弃，我们只是让一部分的神经元不参与这次的运算。这里的参数被设置为0.15，就是说有32个特征图中有15%会被置0。</p>
+<p>dropout成可以帮助我们，</p>
+<ul>
+<li><p>解决神经网络的过拟合问题</p>
+</li>
+<li><p>加速神经网络（运算量变小）</p>
+</li>
+</ul>
+<p>在BN层出来以后，有一种说法是dropout将不再需要。BN可以代替dropout解决模型的过拟合问题。然而经过实际的项目测试发现，仅仅依靠BN层是远远不够的。我们任然需要较大的dropout来解决模型的过拟合问题，增加模型的泛化能力，一般会设置在0.5左右。</p>
+<p>更详细的美容可以参考：</p>
+<p><a href="https://zhuanlan.zhihu.com/p/38200980" target="_blank" rel="noopener">深度学习中Dropout原理解析</a></p>
+<p>接下来终于到了我们熟悉的池化层，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = MaxPool2D(pool_size=<span class="number">2</span>, strides=<span class="number">2</span>, padding=<span class="string">'same'</span>)(x)</span><br></pre></td></tr></table></figure>
+
+<p>这里也就不再累述池化层的作用与运算了。经过池化层后，我们输出shape变为[14,14,32]。</p>
+<p>再然后，又是一个卷积层,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = Conv2D(<span class="number">64</span>, (<span class="number">3</span>, <span class="number">3</span>), strides=<span class="number">1</span>, padding=<span class="string">'same'</span>, name=<span class="string">'conv3'</span>)(x)</span><br></pre></td></tr></table></figure>
+
+<p>需要计算的参数有，</p>
+<pre><code>32 * 3 * 3 * 64 + 64 = 18496</code></pre><p>之前我们没有遇到过这样大维度的卷积运算。这里我解释一下为什么参数数量是这样子计算的。</p>
+<p>其实后面的3 * 3 * 64十分好理解，与之前的相同，主要是为什么要乘上32。 举个例子，比方说我们的输入图像是rgb的手写数字，那个其shape为[28,28,3]。 如果我们用一个3乘3的卷积核对其做卷积运算，我们并不是用同样的一个卷积核分别与r，g，b这三个分量卷积。而是我们会训练三个卷积核，分别用三个卷积和与三个颜色分量做卷积，得到三个特征图再将他们加起来，最后的输出是[28,28,1]，需要计算的参数有3 *3 *3 + 1=28个。</p>
+<p>那么同理我们就可以理解上面的计算过程为什么是这样的了。</p>
+<p>后面基本就是卷积，池化，标准化和激活的重复，我们不再累述。 接下来我们来看Flatten，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = Flatten()(x)</span><br></pre></td></tr></table></figure>
+
+<p>Flatten层非常好理解，就是将矩阵给“拉直了”，这样方便我们后面的全连接成运算。 通过计算我们知道进入flatten前，我们的shape为[7,7,32]。那么将他“拉直”以后我们得到，7 * 7 * 32 = 1568。</p>
+<p>最后的最后就是全连接层，一般来说最后我们最好2层以上的全连接层。一层中的一个神经元我们可以将其看作是一个多项式，如果是只有一层的话我们没有办法取拟合非线性的问题，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = Dense(<span class="number">100</span>, name=<span class="string">'Dense30'</span>)(x)</span><br><span class="line">x = Activation(<span class="string">'relu'</span>, name=<span class="string">'relu6'</span>)(x)</span><br><span class="line">x = Dropout (<span class="number">0.05</span>)(x)</span><br><span class="line">x = Dense(<span class="number">10</span>, name=<span class="string">'Dense10'</span>)(x)</span><br></pre></td></tr></table></figure>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title='0' data-url='http://link.hhtjim.com/163/5146554.mp3'></li>
+                    
+                        <li title='1' data-url='http://link.hhtjim.com/qq/001faIUs4M2zna.mp3'></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

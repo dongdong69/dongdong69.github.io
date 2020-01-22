@@ -60,7 +60,7 @@
         <div class="stuff">
             <span>七月 31, 2019</span>
             
-  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Classification/">Classification</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Random-Forests/">Random Forests</a></li></ul>
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Classification/">Classification</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Random-Forests/">Random Forests</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Tree/">Tree</a></li></ul>
 
 
         </div>
@@ -107,71 +107,71 @@
 <p> 对于非数值型的数据，我们可以采取众数等方式补全，或者用朴素贝叶斯通过其他特征来进行预测。对于数值类型的数据，我们可以采用中位数以及平均数等方式补全。到此为止都还是常规操作，接下来的操作就比较特别了。</p>
 <p> 首先，我们创建一个m*m的矩阵M。M[u,v]对应的值是，数据u对数据v的权重加成。接下来我们用这条缺失后补全的数据，分别在k个决策树中做分类，直到分类到一个具体的叶子节点。在这个子节点上，除了这条缺失数据，我们可能还有其他多条数据集中的数据。那么他们在同一个节点上，说明这些数据具有一定的相似度。比方说数据i与数据j在同一叶子节点上，那么相应的M[i,j]加1。我们采用这种方法统计所有k个决策树。</p>
 <p> 这里我们应用<strong>StatQuest</strong>视频中的例子来讲解。我们的原始数据集如下，</p>
- <div style="text-align: center">
+ <center>
  <img src="/images/Random-Forests/Dataset.png">
- </div>
+ </center>
 
 <p> “Blocked Arteries”的缺失数据根据众数的规则填补，“Weight”则根据中位数的规则填补缺失。填补后的数据如下，</p>
- <div style="text-align: center">
+ <center>
  <img src="/images/Random-Forests/Filled-in-Dataset.png">
- </div>
+ </center>
 
 <p> 在建立随机森林以后，在每一棵树上，运行所有的数据。首先我们在第一颗树上运行，并且我们找到数据集上第三条和第四条在同一叶子节点上，</p>
- <div style="text-align: center">
+ <center>
  <img src="/images/Random-Forests/Sample3-Sample4.png">
- </div>
+ </center>
 
 <p> 接着，我们在权值矩阵上，M[3,4]和M[4,3]位置做加一操作，如图所示，</p>
- <div style="text-align: center">
+ <center>
  <img src="/images/Random-Forests/Matrix1.png">
- </div>
+ </center>
 
 <p> 接下来是同样的操作在第二棵树上，这次第二、三、四条都在同一叶子节点上，</p>
- <div style="text-align: center">
+ <center>
  <img src="/images/Random-Forests/Tree2.png">
- </div>
+ </center>
 
 <p> 累加，</p>
- <div style="text-align: center">
+ <center>
  <img src="/images/Random-Forests/Matrix2.png">
- </div>
+ </center>
 
 <p> 重复上述步骤，直到我们统计完所有的k棵决策树，</p>
- <div style="text-align: center">
+ <center>
  <img src="/images/Random-Forests/Matrix3.png"><img src="/images/Random-Forests/Matrix4.png">
- </div>
+ </center>
 
 <p> 最后我们计算每个特征的加权频率，首先是“Blocked Arteries”，<br> 统计Yes的权重，原数据中，只有第二条记录是Yes，于是我们在权重矩阵中找到第二条对第四条的权重，为0.1，</p>
- <div style="text-align: center">
+ <center>
  <img src="http://latex.codecogs.com/gif.latex?Yes=\frac{1}{3}*The weight of Yes=\frac{1}{3}*\frac{0.1}{0.1+0.1+0.8}=0.03">
- </div>
+ </center>
 
 <p> 其次是No的权重，我们找到第一条和第三条都是No，所以其权重为0.1+0.8，</p>
- <div style="text-align: center">
+ <center>
  <img src="http://latex.codecogs.com/gif.latex?No=\frac{2}{3}*The weight of No=\frac{1}{3}*\frac{0.1+0.8}{0.1+0.1+0.8}=0.6">
- </div>
+ </center>
 
 <p> 0.6大于0.03，于是第四条的“Blocked Arteries”仍然为No。</p>
 <p> 对于数值型的特征，起计算过程如下，</p>
- <div style="text-align: center">
+ <center>
  <img src="http://latex.codecogs.com/gif.latex?Weight=125*\frac{0.1}{0.1+0.1+0.8}+180*\frac{0.1}{0.1+0.1+0.8}+210*\frac{0.8}{0.1+0.1+0.8}=198.5">
- </div>
+ </center>
  我们一直迭代这个过程，直到缺失值的变化不大。
 </li>
 <li><p>新数据中的数据缺失</p>
- <div style="text-align: center">
+ <center>
  <img src="/images/Random-Forests/New-Sample.png">
- </div>
+ </center>
 
 <p> 首先我们分别创建两个这个数据的副本，</p>
- <div style="text-align: center">
+ <center>
  <img src="/images/Random-Forests/Copy1.png"><img src="/images/Random-Forests/Copy2.png">
- </div>
+ </center>
 
 <p> 接着我们用上文中提到过的方法，分别为他们预测缺失数据，其预测结果如下，</p>
- <div style="text-align: center">
+ <center>
  <img src="/images/Random-Forests/Guss1.png"><img src="/images/Random-Forests/Guss2.png">
- </div>
+ </center>
 
 <p> 接着，我们在森林的所有数中运行这两个样例，被正确分类的夺得样例，就是我们最终的结果。假设样例1被正确分类的次数更多，那么缺失值就是“YES”，同时，我们也得到了这个新样例的分类结果“会得心脏病”。</p>
 </li>

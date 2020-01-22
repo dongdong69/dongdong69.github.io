@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html lang class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tensorflow Env - Dong</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Dongdong,"> 
+    <meta name="description" content="前言
+我们希望能够搭建一个tensorflow-gpu 和 keras 架构的机器学习环境。本文主要是为了记录配置Keras的过程中踏过的坑，由于我们机器环境是win10，所以我们主要讲如何在win,"> 
+    <meta name="author" content="John Doe"> 
+    <link rel="alternative" href="atom.xml" title="Dong" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">Dong</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">Tensorflow Env</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Tensorflow Env</h1>
+        <div class="stuff">
+            <span>九月 10, 2019</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Keras/">Keras</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Tensorflow/">Tensorflow</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><hr>
+<p>我们希望能够搭建一个tensorflow-gpu 和 keras 架构的机器学习环境。<br>本文主要是为了记录配置Keras的过程中踏过的坑，由于我们机器环境是win10，所以我们主要讲如何在win10上配置tensorflow。</p>
+<h3 id="Conda-env"><a href="#Conda-env" class="headerlink" title="Conda env"></a>Conda env</h3><hr>
+<ul>
+<li>一下命令行均在cmd中运行</li>
+</ul>
+<p>首先我们需要一个独立的环境。这里我利用conda来创建一个名为tensorflow python3.6的独立环境。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create --name tensorflow python=3.6</span><br></pre></td></tr></table></figure>
+
+<p>之所以用python3.6是因为最新的tensorflow还不能够很好的兼容py3.7，还有就是jupyter notebook在使用3.7为内核的时候，多多少少也有一些问题，比上说没有办法interrupt kernel，导致每次只能够选择直接shutdown，使得恢复现场浪费大量时间。因而推荐使用py3.6</p>
+<p>接下来我们需要激活环境，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">canda activate tensorflow</span><br></pre></td></tr></table></figure>
+
+<p>conda env相关操作如下，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#退出当前环境</span></span><br><span class="line">conda deactivate</span><br><span class="line"></span><br><span class="line"><span class="comment">#列出所有的环境</span></span><br><span class="line">conda env list</span><br><span class="line"></span><br><span class="line"><span class="comment">#删除环境</span></span><br><span class="line">conda env remove --name tensorflow</span><br></pre></td></tr></table></figure>
+
+<p>将conda环境加入到jupyter中，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m ipykernel install --user --name tensorflow --display-name <span class="string">"Python (tensorflow)"</span></span><br></pre></td></tr></table></figure>
+
+<p>报错，原因是没有ipykernel。通过pip安装ipykernel，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install ipykernel</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装gpu支持版本的tensorflow"><a href="#安装gpu支持版本的tensorflow" class="headerlink" title="安装gpu支持版本的tensorflow"></a>安装gpu支持版本的tensorflow</h3><p>首先我尝试直接用pip安装，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install tensorflow-gpu</span><br></pre></td></tr></table></figure>
+
+<p>但是安装失败</p>
+<p>接着尝试conda安装，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install tensorflow-gup</span><br></pre></td></tr></table></figure>
+
+<p>安装成功，但是我们注意到安装的tensorflow-gpu版本为1.2.1。</p>
+<p>接下来我们用conda安装keras</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install keras</span><br></pre></td></tr></table></figure>
+
+<p>安装成功，但同时又下了一个cpu版本的tensorflow。</p>
+<p>cmd 启动 jupyter notebook。在右上角的kernel处选择我们刚刚创建的Python (tensorflow)，然后验证我们的环境是否搭建成功。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#验证是否成功，如果输出的结果可以看到自己电脑的cpu和gpu说明我们成功的配置好了环境</span></span><br><span class="line"><span class="keyword">from</span> tensorflow.python.client <span class="keyword">import</span> device_lib</span><br><span class="line">print(device_lib.list_local_devices())</span><br></pre></td></tr></table></figure>
+
+<p>然而输出的结果我们只能看到cpu。原因是我们后面安装keras的时候，cpu版本的tensorflow将之前的gpu版本覆盖了。这个时候就突显了用conda安装的劣势。</p>
+<pre><code>- conda会下载很多的依赖包，非常容易产生上面这种冲突的情况。
+
+- 通过canda下载的版本过低。目前的tensorflow已经更新到了1.14，但是conda下载的是1.2.1。</code></pre><p>重新尝试使用pip安装，之前失败原因是我们需要更新我们这个环境下的所有包，更新方法如下，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda update -all</span><br></pre></td></tr></table></figure>
+
+<p>更新完以后我们就可以通过pip安装了，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install tensorflow-gpu</span><br><span class="line"></span><br><span class="line">pip install keras</span><br></pre></td></tr></table></figure>
+
+<p>接着我们验证是否成功，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow</span><br></pre></td></tr></table></figure>
+
+<p>报错，没有xxxx.dell（具体是啥我忘记了），其原因是我们没有安装CUDA。</p>
+<h3 id="安装CUDA以及CUDnn"><a href="#安装CUDA以及CUDnn" class="headerlink" title="安装CUDA以及CUDnn"></a>安装CUDA以及CUDnn</h3><hr>
+<p><strong>一定要下载相互匹配的本版</strong></p>
+<p>我的python环境是3.6，tensorflow-gpu是1.14。与之相匹配为的CUDA和CUDnn版本分别是10.0和7.4。</p>
+<p>英伟达官网上有详细的安装流程，跟着流程选择合适自己环境的版本下载。CUDA的安装过程较为简单，跟着流程一直下一步就可以了。CUDnn下载以后会有一个压缩文件，将压缩文件中的文件，按照文件名复制粘贴到CUDA相应的路径下即可。</p>
+<ul>
+<li>在cmd下验证</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvcc --version</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在python下验证</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow</span><br></pre></td></tr></table></figure>
+
+<p>再次失败，还是同样的错误。我们检查CUDA下lib路径中，发现我们是有这个文件的。接着我们检查环境变量，发现环境变量也是有的。在网上查了很久发现，其实只要重新启动一下电脑就好了，很尴尬。</p>
+<p>接着我们重启，可惜还是报错，但这次的错误不一样了，报的错误是numpy.core的importError，其原因应该是numpy的版本冲突。</p>
+<p>我们在cmd中更新numpy版本至最新，显示numpy版本为1.17。然而我们在python中查看numpy版本，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy</span><br><span class="line">numpy.__version__</span><br></pre></td></tr></table></figure>
+
+<p>输出的版本为1.8。其原因还是由于使用conda导致，血妈坑。我们在C:\software\Anaconda3\envs\tensorflow\Lib\site-packages下检查我们nunmpy的版本，发现同时有1.8和1.17。</p>
+<p>如果不知道怎么找到包安装在哪了，可以在python中通过以下代码找到，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy</span><br><span class="line">numpy.__file__</span><br></pre></td></tr></table></figure>
+
+<p>接着我们尝试用pip删除numpy，重新安装。失败。</p>
+<p>最后我们直接在site-packages目录下删除所有numpy文件夹。然后重新通过pip安装，成功。</p>
+<p>在python下检查我们的tensorflow环境是否成功。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.client <span class="keyword">import</span> device_lib</span><br><span class="line">print(device_lib.list_local_devices())</span><br></pre></td></tr></table></figure>
+
+<p>没有报错，我们看到输出的list中，同时有cpu和gpu。其结果如下，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;</span><br><span class="line">&gt;&gt;&gt;[name: <span class="string">"/device:CPU:0"</span></span><br><span class="line">&gt;&gt;&gt;device_type: <span class="string">"CPU"</span></span><br><span class="line">&gt;&gt;&gt;memory_limit: <span class="number">268435456</span></span><br><span class="line">&gt;&gt;&gt;locality &#123;</span><br><span class="line">&gt;&gt;&gt;&#125;</span><br><span class="line">&gt;&gt;&gt;incarnation: <span class="number">15086692067621295500</span></span><br><span class="line">&gt;&gt;&gt;, name: <span class="string">"/device:GPU:0"</span></span><br><span class="line">&gt;&gt;&gt;device_type: <span class="string">"GPU"</span></span><br><span class="line">&gt;&gt;&gt;memory_limit: <span class="number">6681918833</span></span><br><span class="line">&gt;&gt;&gt;locality &#123;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span> bus_id: <span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span> links &#123;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span> &#125;</span><br><span class="line">&gt;&gt;&gt;&#125;</span><br><span class="line">&gt;&gt;&gt;incarnation: <span class="number">1215233345139516470</span></span><br><span class="line">&gt;&gt;&gt;physical_device_desc: <span class="string">"device: 0, name: GeForce GTX 1070 with Max-Q Design, pci bus id: 0000:01:00.0, compute capability: 6.1"</span></span><br><span class="line">&gt;&gt;&gt;]</span><br></pre></td></tr></table></figure>
+
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title='0' data-url='http://link.hhtjim.com/163/5146554.mp3'></li>
+                    
+                        <li title='1' data-url='http://link.hhtjim.com/qq/001faIUs4M2zna.mp3'></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

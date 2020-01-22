@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+<html lang class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PCA - Dong</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Dongdong,"> 
+    <meta name="description" content="什么是PCA
+PCA是一种降维的方法，通俗易懂的来讲就是用更少的维度去尽可能多的保留原始数据中的信息。其主要解决的问题就是，过多的特征数量导致的计算量过于庞大。本文主要从数学以及几何的角度上去分析P,"> 
+    <meta name="author" content="John Doe"> 
+    <link rel="alternative" href="atom.xml" title="Dong" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">Dong</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">PCA</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">PCA</h1>
+        <div class="stuff">
+            <span>八月 28, 2019</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Linear-Algebra/">Linear Algebra</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="什么是PCA"><a href="#什么是PCA" class="headerlink" title="什么是PCA"></a>什么是PCA</h2><hr>
+<p>PCA是一种降维的方法，通俗易懂的来讲就是用更少的维度去尽可能多的保留原始数据中的信息。其主要解决的问题就是，过多的特征数量导致的计算量过于庞大。本文主要从数学以及几何的角度上去分析PAC是如何做到“合理”降维的。</p>
+<h2 id="PCA与几何"><a href="#PCA与几何" class="headerlink" title="PCA与几何"></a>PCA与几何</h2><hr>
+<p>假设我们有5组数据，每个数据都拥有2两个特征，其矩阵的表示如下，</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?X=\left[\begin{matrix}-1&-1&0&2&0\\-2&0&0&1&1\end{matrix}\right]">
+</center>
+
+<p>结合我们之前的线性代数知识，如果我们想将一个二维的数据降维到一维空间上，其集合的过程就是将所有的二维向量都投影到一条直线上。从矩阵上来看，就是我们要找一个1乘2的矩阵P。 假设我们将这组数据投影到x轴上，其表示如下，</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?PX=\left[\begin{matrix}1&0\end{matrix}\right] \left[\begin{matrix}-1&-1&0&2&0\\-2&0&0&1&1\end{matrix}\right] = \left[\begin{matrix}-1&-1&0&2&0\end{matrix}\right]">
+</center>
+
+<p>扩展到一般的例子就是，假设我们有一个n乘m的数据集合（m条数据，每条数据具有n个特征值），我们想将其降为到k。我们所要做的就是找到一个最“合适”的k乘n矩阵，记作P。然而什么样的矩阵P，才能被称作最合适呢？</p>
+<h2 id="PCA与方差"><a href="#PCA与方差" class="headerlink" title="PCA与方差"></a>PCA与方差</h2><hr>
+<p>在上面的例子中，显然[1,0]这不是一个投影直线，我们可以看到第一组和第二组数据会重合，而第三与第四会重合。 我们想要的是在在投影过后，数据之间还能够有足够的间隔。换句话说就是，使得数据能够最大可能地保留他们之间的差别。 从统计学的角度思考这个问题，就是希望特征之间的方差足够的大。</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\frac{1}{m}\sum_{i=1}^m(a_i-\mu)">
+</center>
+
+<p>mu为投影后特征的均值，ai为投影后个数据所对应的特征值。为了计算的方便，我们会先对数据进行0均值的处理，其过程非常简单，就是计算每一行数据的均值，然后用每一行的每一个数据减去其均值。0均值处理后的方差公式表示如下，</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\frac{1}{m}\sum_{i=1}^ma_i">
+</center>
+
+<p>那么PCA对于这个例子来说，就是我们要找到一条直线，这条直线可以使得投影后的特征值之间有最大的方差。</p>
+<h2 id="PCA与协方差"><a href="#PCA与协方差" class="headerlink" title="PCA与协方差"></a>PCA与协方差</h2><p>但是对于更高维的数据来说，仅仅找到“一条直线”是远远不足够的。比方说我们想将一个三维的数据投影到二维空间上，在完成第一个方向的选择后，继而我们去寻找第二个投影方向。 这次我们去寻找第二大的方差投影。 但是如果我们知识单纯的找第二大的，那么其结果必然是与第一个几乎重合。 因此我们需要其他的约束条件，即另两个方向线性不相关。换句话说就是与第一个投影方向正交。</p>
+<p>统计学上我们用协方差表示两个特征的相关性，由于我们已经做了0均值处理，其公式如下，</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\frac{1}{m}\sum_{i=1}^ma_ib_i">
+</center>
+
+<p>当协方差为0时，表示两个特征值之间完全线性无关，1表示正相关，-1为负相关。 协方差为0在集合上的表现形式为两个方向正交。</p>
+<h2 id="协方差矩阵"><a href="#协方差矩阵" class="headerlink" title="协方差矩阵"></a>协方差矩阵</h2><p>上面我们知道了PCA的目标是找到一个矩阵P，矩阵P使得Y=PX的特征的方差最大化，并令所有特征之间的协方差尽可能地小。</p>
+<p>我们有一个2乘5的数据集合X，表示如下，</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?X=\left[\begin{matrix}a_1&a_2&a_3&a_4&a_5\\b_1&b_2&b_3&b_4&b_5\end{matrix}\right]">
+</center>
+
+<p>然后我们用X的乘以X的转置，XX.T，得到，</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?\frac{1}{5}XX^T=
+\left[\begin{matrix}
+\frac{1}{5}\sum_{i=1}{5}a_i^2&\frac{1}{5}\sum_{i=1}{5}a_ib_i\\
+\frac{1}{5}\sum_{i=1}{5}a_ib_i & \frac{1}{5}\sum_{i=1}{5}b_i^2
+\end{matrix}\right]">
+</center>
+
+<p>这个矩阵的对角线元素为数据集中各特征的方差，而他的为各特征之间的协方差，并且该矩阵为一个对称矩阵。结合前面的我们的优化目标，令所有协方差为0，方差从大到小排序。等价于协方差矩阵的对角化（除了对角线以外，其他的元均为0），并将方差从大到小排序。</p>
+<p>我们将原始的数据的协方差矩阵记作C,</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?C=\frac{1}{5}XX^T">
+</center>
+
+<p>P是我们的目标矩阵，Y=PX，Y为X对P做基变换后的矩阵。 令D为Y的协方差矩阵，由此可见，我们的目标是令矩阵D对角化，</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?D=\frac{1}{m}YY^T=\frac{1}{m}(PX)(PX)^T=P(\frac{1}{m}XX^T)P^T=PCP^T">
+</center>
+
+<p>由此可见，我们所要找的矩阵P正是能够使得原始协方差矩阵C对角化的矩阵。</p>
+<h2 id="实对称矩阵对角化与矩阵的特征向量"><a href="#实对称矩阵对角化与矩阵的特征向量" class="headerlink" title="实对称矩阵对角化与矩阵的特征向量"></a>实对称矩阵对角化与矩阵的特征向量</h2><p>我们知道矩阵C为实对称矩阵（如果有n阶矩阵A，其矩阵的元素都为实数，且矩阵A的转置等于其本身，则称A为实对称矩阵），而实对称矩阵具有以下几个重要的性质，</p>
+<ol>
+<li><p>实对称矩阵A的不同特征值对应的特征向量是正交的。</p>
+</li>
+<li><p>实对称矩阵A的特征值都是实数，特征向量都是实向量。</p>
+</li>
+<li><p>n阶实对称矩阵A必可相似对角化，且相似对角阵上的元素即为矩阵本身特征值。</p>
+</li>
+<li><p>若A具有k重特征值λ0　必有k个线性无关的特征向量，或者说必有秩r(λ0E-A)=n-k，其中E为单位矩阵。</p>
+</li>
+</ol>
+<p>由以上几点性质我们可以如下结论，</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?E^TCE=\lambda">
+</center>
+
+<p>其中E为协方差矩阵C的特征向量组成的矩阵，lambda为对角矩阵，且对角矩阵上的元素为C的特征值。</p>
+<p>通过结合上式我们知道矩阵P，</p>
+<center>
+<img src="http://latex.codecogs.com/gif.latex?P=E^T">
+</center>
+
+<p>即原始协方差矩阵C的转置，所以求解C的特征向量，并按照特征值lambda的大小从大到小排列，就可以得到我们降维以后的数据矩阵Y。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title='0' data-url='http://link.hhtjim.com/163/5146554.mp3'></li>
+                    
+                        <li title='1' data-url='http://link.hhtjim.com/qq/001faIUs4M2zna.mp3'></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

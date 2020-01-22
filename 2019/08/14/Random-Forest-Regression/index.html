@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Random Forest Regression - Dong</title>
+    <title>Ensemble - Dong</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
@@ -38,7 +38,7 @@
     <div class="bar" style="width: 0;"></div>
     <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
     <div title="播放/暂停" class="icon-play"></div>
-    <h3 class="subtitle">Random Forest Regression</h3>
+    <h3 class="subtitle">Ensemble</h3>
     <div class="social">
         <!--<div class="like-icon">-->
             <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
@@ -56,7 +56,7 @@
     <div class="section">
         <div class="article">
     <div class='main'>
-        <h1 class="title">Random Forest Regression</h1>
+        <h1 class="title">Ensemble</h1>
         <div class="stuff">
             <span>八月 14, 2019</span>
             
@@ -70,6 +70,7 @@
 <h2 id="集成方法"><a href="#集成方法" class="headerlink" title="集成方法"></a>集成方法</h2><hr>
 <p>集成学习是将多个模型进行组合来解决单一的预测问题。其原理是生成多个分类器模型，各自独立的学习并做出预测，这些预测最后结合起来得到预测结果，因此和单独分类器相比结果会更好。</p>
 <h3 id="Bagging-与-Boosting"><a href="#Bagging-与-Boosting" class="headerlink" title="Bagging 与 Boosting"></a>Bagging 与 Boosting</h3><hr>
+<p>Bagging 与 Boosting 为两种常用的集成学习方法。 运用在树形的模型中其表现为随机森林与增强树以及各种增强树的变形（XBoost与lightgbm等）。</p>
 <p>Bagging (bootstrap aggregating)</p>
 <p>Bagging即套袋法，其算法过程如下：</p>
 <ul>
@@ -92,8 +93,15 @@
 </ul>
 <p>通过加法模型将弱分类器进行线性组合，比如AdaBoost通过加权多数表决的方式，即增大错误率小的分类器的权值，同时减小错误率较大的分类器的权值。</p>
 <p>而提升树通过拟合残差的方式逐步减小残差，将每一步生成的模型叠加得到最终模型。</p>
-<h2 id="搭建回归森林"><a href="#搭建回归森林" class="headerlink" title="搭建回归森林"></a>搭建回归森林</h2><hr>
-<p>回归森林的基本流程与随机森林几乎完全相同，唯一不同的地方是我们将其中分类的决策树换成了回归决策树。由于随机森林和回归决策树在以前的文章中都有详细的介绍，这里就不再过多的累述。</p>
+<ul>
+<li>当然上面那些内容都是我抄来的。 要以我的话来说，Boosting与Bagging两种方法分别关注于模型的两个方面，偏差于方差。所谓偏差，用通俗的话来讲，就是偏差小的模型预测的很准。可见，boosting是关注于偏差的，下一个树所训练的目标是上一个树的结果与真实值得差值。而所谓方差，指的是预测结果之间的差距，是表述结果与结果之间的指标。方差小的模型，其结果更集中，在面对不同的数据集时，其往往拥有更好的鲁棒性。Bagging正是关注于这一指标，应该我们说Bagging模型相对来说不容易过拟合。</li>
+</ul>
+<p>2020/1/22 更新</p>
+<h3 id="关于集成学习的思考"><a href="#关于集成学习的思考" class="headerlink" title="关于集成学习的思考"></a>关于集成学习的思考</h3><hr>
+<p>集成学习的思想为什么没有在线性回归中应用？</p>
+<p>集成学习本身是线性的，线性与线性的叠加是没有意义的。并不会起到提升模型的作用，因而我们更多的见到集成模型是运用在树模型以及神经网络中。</p>
+<p>应当采用什么样的模型做集成？</p>
+<p>相似的近似的模型集成，效果往往达不到预期。比方说，我们在一个图像分类问题中，尝试将Resnet与Denesnet集成，往往效果不佳，其原因是他们两者相对相似，都是属于同一种网络结构。因而更常用的做法是将他Resnet或者Denesnet与efficientnet和inceptionnet相结合，以达到更好的集成效果。当然，在深度学习中运用集成学习，其代价是十分高昂的。在没有好的gpu条件下，训练的时间成本很高。</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">

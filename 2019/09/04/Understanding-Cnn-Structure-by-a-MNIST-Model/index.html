@@ -94,12 +94,12 @@ MNIST with Kera,">
 <li><p>padding：卷积核的移动范围，种类一共有三种，</p>
 <ul>
 <li><p><strong>padding=’full’</strong></p>
-  <center><img src="/images/MNIST/full.png"></center>
+  <center><img src="/images/MNIST/full.jpg"></center>
 
 <p>  当卷积核与图像刚刚相交的时候就开始做卷积运算，空白的部分补0，可以预见的就是，full模式将使得输出shape扩大。</p>
 </li>
 <li><p><strong>padding=’same’</strong></p>
-  <center><img src="/images/MNIST/full.jpg"></center>
+  <center><img src="/images/MNIST/same.jpg"></center>
 
 <p>  当卷积核的中心与图片的边重合的时候开始做卷积运算，same模式下，输出将位置输入时候的shape。采用same模式的好处有很多。比方说，对比valid他将保留更多的图片特征。同时保持shape有助于我们控制网络的输入输出的shape。并且，我们可以没有顾虑的加深网络。</p>
 </li>

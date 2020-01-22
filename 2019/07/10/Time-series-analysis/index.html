@@ -67,6 +67,12 @@ Suppose we have te,">
             <p>We use a example to tell the Similarity between Time Series.</p>
 <h2 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h2><hr>
 <p>Suppose we have tens of thousands of products’ daily saling volume informations. We want to find the most similar product for each products in our dataset. Therefor, we need to find the best metric to measure the distance or Similarity between those products.</p>
+<p>for example the sales volume of product 100010 looks like:</p>
+<center><img src="/images/TimeSeriesSimilarity/product100010.png"></center>
+
+<p>smoothed:</p>
+<center><img src="/images/TimeSeriesSimilarity/smooth_product100010.png"></center>
+
 <h2 id="Data-Structure"><a href="#Data-Structure" class="headerlink" title="Data Structure"></a>Data Structure</h2><hr>
 <p> Followings are the data stucture of products’ daily sales information. k for number of days, n for number of products. Using 2016 data as an example, we have 366 days in this year and 33,494 products.</p>
 <center>
@@ -108,6 +114,109 @@ Suppose we have te,">
 <p>PS: It is a <strong>Symmetric Matrices</strong> and the diagonal is 0(distance between same itself).</p>
 <p>Code Here:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## output the distance between a product and all the others</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">euclidean_metric</span><span class="params">(product, sales)</span>:</span></span><br><span class="line">    </span><br><span class="line">    index = np.where(product_key==product)</span><br><span class="line">    index = index[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    m, n = sales.shape</span><br><span class="line">    distance = np.zeros([m, <span class="number">1</span>])</span><br><span class="line">    diff = sales[index,:] - sales</span><br><span class="line">    distance = np.sqrt(np.sum(diff*diff, axis=<span class="number">1</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> distance</span><br></pre></td></tr></table></figure>
+
+<h3 id="The-result-of-euclidean-metric"><a href="#The-result-of-euclidean-metric" class="headerlink" title="The result of euclidean metric"></a>The result of euclidean metric</h3><hr>
+<p>Here is a result find by euclidean metric, the most similar product of id 100010</p>
+<center><img src="/images/TimeSeriesSimilarity/em_result_0.png"></center>
+
+<h3 id="Disadvantages-of-Using-Euclidean-Metric"><a href="#Disadvantages-of-Using-Euclidean-Metric" class="headerlink" title="Disadvantages of Using Euclidean Metric"></a>Disadvantages of Using Euclidean Metric</h3><hr>
+<p>Usually, there are several disdavanagtes by using mean square error(Euclidean Metric). For example,</p>
+<ol>
+<li><p>Euclidean Metric dosen’t care about the shape of curves.</p>
+</li>
+<li><p>It also does not care about range of changes.</p>
+</li>
+</ol>
+<p>However, as we can see, the proformance of Euclidean Metric is good. I think the main resent behind it is our dataset is large enough.</p>
+<p>But, there still are some problem inside.</p>
+<br>
+As for an example, lets see the reference for the product which <b>sold the most</b> in 2016 which product_key is 146915.
+
+<center><img src="/images/TimeSeriesSimilarity/em_result_1.png"></center>
+
+<h4 id="result"><a href="#result" class="headerlink" title="result"></a>result</h4><p>It just simply find the NO.2 sales product as its reference. Beacuse it focuse too much on the number of sales and do not care about the shape.</p>
+<h2 id="Mean-Squared-Logarithmic-Error"><a href="#Mean-Squared-Logarithmic-Error" class="headerlink" title="Mean Squared Logarithmic Error"></a>Mean Squared Logarithmic Error</h2><hr>
+<p>To solve the problem above, we add a $\log$ inside our formual. Except it can help us narrow done the top saling products. Therefor, we can find a better reference for it.</p>
+<p>This time we use Mean Squared Logarithmic Error as a metric. The basic log squre error is:</p>
+<center>
+    <img src="http://latex.codecogs.com/gif.latex?logSqureError[Product_u,Product_v] = \frac{1}{k}{\sum_{i=1}^n (\log(day_{u,i}+1) - \log(day_{v,i}+1))^2}">
+</center>
+
+<p>However, we have some nagative sales value inside our data. To solve this problem, we add $- min(day)$ inside, which makes them all positive. After that, the new formular is,</p>
+<center>
+    <img src="http://latex.codecogs.com/gif.latex?logSqureError[Product_u,Product_v] = \frac{1}{k}{\sum_{i=1}^n (\log(day_{u,i} + 1 - min(day)) - \log(day_{v,i} + 1- min(day)))^2}">
+</center>
+
+<p>code below</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log_square_metric</span><span class="params">(product, sales)</span>:</span></span><br><span class="line">    </span><br><span class="line">    index = np.where(product_key==product)</span><br><span class="line">    index = index[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    m, n = sales.shape</span><br><span class="line">    distance = np.zeros([m, <span class="number">1</span>])</span><br><span class="line">    </span><br><span class="line">    new_sales = sales + <span class="number">1</span> - np.min(sales)</span><br><span class="line">    diff = np.log(new_sales[index]) - np.log(new_sales)</span><br><span class="line">    distance = np.mean(diff**<span class="number">2</span>, axis=<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> distance</span><br></pre></td></tr></table></figure>
+
+<p>However, the result is same as the euclidean metric. And it is easy to prove that they have the same result. However I am not gonna to prove it here.</p>
+<h2 id="Pearson-Correlation-Coefficient"><a href="#Pearson-Correlation-Coefficient" class="headerlink" title="Pearson Correlation Coefficient"></a>Pearson Correlation Coefficient</h2><hr>
+<p>Comparing with the distance metrics above, <strong>correlation coefficient</strong> focuse much more on  <strong>the shape</strong> of curves. It can help us fix <strong>the problem above</strong> (For products which sales a lot, <strong>distance metrics</strong> just simply find one which sold similar. For example, we test the NO.1 saling product, and our alg just sample find the NO.2 product).</p>
+<p>The formular of Pearson Correlation Coefficient is,</p>
+<center>
+    <img src="http://latex.codecogs.com/gif.latex?COR(Product_u, Product_v) = \frac{\sum_i^k(day_{u,i}-\overline{day_{u,i}})(day_{v,i}-\overline{day_{v,i}}) }{\sqrt{\sum_i^k(day_{u,i}-\overline{day_{u,i}})^2\sum_i^k(day_{v,i}-\overline{day_{v,i}})^2}}">
+</center>
+
+<p>The result of cor is between $[-1, 1]$.</p>
+<p>Code below,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">correlation</span><span class="params">(product, sales)</span>:</span></span><br><span class="line">    index = np.where(product_key==product)</span><br><span class="line">    index = index[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    m, n = sales.shape</span><br><span class="line">    distance = np.zeros([m, <span class="number">1</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">        distance[i,<span class="number">0</span>] = np.corrcoef([sales[index], sales[i]])[<span class="number">1</span>,<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">if</span> np.isnan(distance[i,<span class="number">0</span>]):</span><br><span class="line">            distance[i,<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">    distance[index,<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> distance</span><br></pre></td></tr></table></figure>
+
+<center>
+    <img src="/images/TimeSeriesSimilarity/pc_result_0.png">
+</center>
+
+<p>Looks like it find a totally different one for us. The reason of it shows like that, is because there is a great gap between those two products’ sales volumes.<br><br><br>Let’s plot them seperatly,</p>
+<center>
+    <img src="/images/TimeSeriesSimilarity/pc_result_1.png">
+</center>
+
+<p>Then put them together under the same level,</p>
+<center>
+    <img src="/images/TimeSeriesSimilarity/pc_result_2.png">
+</center>
+
+<p>As we can see, <strong>correlation</strong> proform great in finding similar <strong>shape</strong> products and it help us solve the problem above.</p>
+<p>However, when we have enough data, <strong>distance matrics</strong> is better than correlation.</p>
+<p>And, there is one more problem in <strong>Correlation Coefficient</strong>, showing by a example below,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">x=np.arange(-np.pi*<span class="number">2</span>,np.pi*<span class="number">2</span>,<span class="number">0.1</span>)</span><br><span class="line">y1=np.sin(x)</span><br><span class="line">y2=np.cos(x)</span><br><span class="line">plt.plot(y1)</span><br><span class="line">plt.plot(y2)</span><br><span class="line">plt.legend([<span class="string">'y1'</span>,<span class="string">'y2'</span>])</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line">np.corrcoef([y1,y2])</span><br></pre></td></tr></table></figure>
+
+<center>
+    <img src="/images/TimeSeriesSimilarity/pc_result_3.png">
+</center>
+
+<p>As for human, we think those two curves are similar. But <strong>Correlation Coefficient</strong> shows they are totaly different. The reason behind it is <strong>Correlation Coefficient</strong> just compare $day_{u,i}$ with $day_{v,i}$. Which means, it can only compare the volumn in the same day. If we move a curve right or left pan a little bit, <strong>Correlation Coefficient</strong> may think it is a totaly different curve. And this problem is also in the most basic <strong>Distance Metric</strong>.</p>
+<p>To solve this problem, we have a new tec called <strong>DTW(Dynamic Time Warping)</strong>.</p>
+<p>By combaining <strong>DTW</strong> and our <strong>Distance Metric</strong> we can solve those kinds of problems. However, we cannot combain it with <strong>Correlation Coefficient</strong>.</p>
+<p>For example we want to compare $Product_u$ and $Product_v$. We should not simply use <strong>Metric</strong>, what we want is the compare every sub ts inside $Product_u$ with $Product_v$. However, it will great increase the time complexity of our <strong>Metric</strong>. </p>
+<h2 id="DTW"><a href="#DTW" class="headerlink" title="DTW"></a>DTW</h2><hr>
+<p><strong>DTW</strong> is a tec. which is related Dynamic planning which can help us using a lower time complexity find the Correct corresponding point between two products.</p>
+<p>DTW believes that if the points of the two sequences correspond correctly, then their distance (<strong>Euclidean distance</strong>) is minimized. We used <strong>Euclidean distance</strong>, because it has a good proformance in our dataset.</p>
+<p>Just as its name, DTW is implemented by <strong>Dynamic planning</strong>. The following formula shows how to use it to calculate the distance between $Product_u$ and $Product_v$.</p>
+<center>
+    <img src="http://latex.codecogs.com/gif.latex?distance[day_{u,i}, day_{v,j}] = 
+\begin{cases}
+(day_{u,0} - day_{v,0})^2    &    & \text{i=0, j=0}\\
+(day_{u,0} - day_{v,j})^2 + distance[day_{u,0}, day_{v,j-1}]    &    & i=0, j \neq 0\\
+(day_{u,i} - day_{v,0})^2 + distance[day_{u,i-1}, day_{v,0}]    &    & i \neq 0, j=0\\
+(day_{u,i} - day_{v,j})^2 + min(distance[day_{u,i-1}, day_{v,j-1}], distance[day_{u,i-1}, day_{v,j}], distance[day_{u,i}, day_{v,j-1}])    &    & i\neq0, j \neq 0
+\end{cases}">
+</center>
+
+<p><strong>The $distance$ here is different from previous.</strong></p>
+<p>The time complexity of <strong>Euclidean distance DTW</strong> is $O(k^2)$, therefor the tatal time complexity is $O(k^2) * O(n^2)$. k for number of days, n for number of products.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">## from bottom to up calculate the distance two products</span></span><br><span class="line">distance = zero_matrix(length of Day_u, length of Day_v)</span><br><span class="line"></span><br><span class="line">distance[0,0] = (Day_u[0] - Day_v[0]) ** 2</span><br><span class="line">distance[1,0] = (Day_u[1] - Day_v[0]) ** 2 + distance[0,0]</span><br><span class="line">distance[0,1] = (Day_u[0] - Day_v[1]) ** 2 + distance[0,0]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i from 1 to length of Day_u:</span><br><span class="line">    <span class="keyword">for</span> j from 1 to length of Day_v:</span><br><span class="line">        distance[i,j] = (Day_u[i] - Day_v[j]) ** 2 + min(distance[i,j], distance[i-1,j], distance[i,j-1])</span><br></pre></td></tr></table></figure>
+
+<p>Code below,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">euclidean_metric_DTW</span><span class="params">(product_u, product_v, sales)</span>:</span></span><br><span class="line">    </span><br><span class="line">    index_u = np.where(product_key==product_u)</span><br><span class="line">    index_u = index_u[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    index_v = np.where(product_key==product_v)</span><br><span class="line">    index_v = index_v[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="comment">##each product has n days, therefor the shape of distance matrix is n*n, m is number of products which is useless here</span></span><br><span class="line">    m, n = sales.shape</span><br><span class="line">    distance = np.zeros([n, n])</span><br><span class="line">    </span><br><span class="line">    distance[<span class="number">0</span>,<span class="number">0</span>] = (sales[index_u, <span class="number">0</span>] - sales[index_v, <span class="number">0</span>]) ** <span class="number">2</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n):</span><br><span class="line">        distance[i,<span class="number">0</span>] = (sales[index_u, i] - sales[index_v, <span class="number">0</span>]) ** <span class="number">2</span> + distance[i<span class="number">-1</span>,<span class="number">0</span>]</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, n):    </span><br><span class="line">        distance[<span class="number">0</span>,j] = (sales[index_u, <span class="number">0</span>] - sales[index_v, j]) ** <span class="number">2</span> + distance[<span class="number">0</span>,j<span class="number">-1</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, n):</span><br><span class="line">            distance[i,j] = (sales[index_u, i] - sales[index_v, j]) ** <span class="number">2</span> + min(distance[i<span class="number">-1</span>,j<span class="number">-1</span>], distance[i<span class="number">-1</span>,j], distance[i,j<span class="number">-1</span>])</span><br><span class="line">            </span><br><span class="line">    <span class="keyword">return</span> distance[<span class="number">365</span>,<span class="number">365</span>]</span><br></pre></td></tr></table></figure>
+
+<center>
+    <img src="/images/TimeSeriesSimilarity/DTW_result_0.png">
+</center>
+
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><hr>
+<p>It is an interesting implementation method trying to find the most similar product. Comparing with traditional method, we focus on different kinds of data. We start with the final goal(products with the most saling) back to the things we have. And the result has a good proference. However, as for most of the most similar products finding by this way, it is hard to find the inner relationship between, which means those similar are totally different.</p>
+
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
                 <source type="audio/mpeg" src="">

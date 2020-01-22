@@ -104,7 +104,7 @@
 <pre><code>- conda会下载很多的依赖包，非常容易产生上面这种冲突的情况。
 
 - 通过canda下载的版本过低。目前的tensorflow已经更新到了1.14，但是conda下载的是1.2.1。</code></pre><p>重新尝试使用pip安装，之前失败原因是我们需要更新我们这个环境下的所有包，更新方法如下，</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda update -all</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda update --all</span><br></pre></td></tr></table></figure>
 
 <p>更新完以后我们就可以通过pip安装了，</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install tensorflow-gpu</span><br><span class="line"></span><br><span class="line">pip install keras</span><br></pre></td></tr></table></figure>

@@ -10,7 +10,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="Dongdong,"> 
-    
+    <meta name="description" content="Notes for pandas
+并不是一个pandas的入门博客，仅仅用于记录一些pandas中的一些tips
+
+对dataframe的单列/多列进行运算。
+ 1df[&#39;new_col&#39;] = d,"> 
     <meta name="author" content="John Doe"> 
     <link rel="alternative" href="atom.xml" title="Dong" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -57,10 +61,36 @@
         <div class="stuff">
             <span>七月 01, 2019</span>
             
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/data-science/">data science</a></li></ul>
+
 
         </div>
         <div class="content markdown">
-            
+            <h2 id="Notes-for-pandas"><a href="#Notes-for-pandas" class="headerlink" title="Notes for pandas"></a>Notes for pandas</h2><hr>
+<p>并不是一个pandas的入门博客，仅仅用于记录一些pandas中的一些tips</p>
+<ol>
+<li><p>对dataframe的单列/多列进行运算。</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">'new_col'</span>] = df[<span class="string">'col'</span>].map(<span class="keyword">lambda</span> x: x**<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p> 对df中的col列进行平方，并将结果保留为new_col列。</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[new_col] = df.apply(<span class="keyword">lambda</span> x: x[<span class="string">'col1'</span>] + x[<span class="string">'col2'</span>]**<span class="number">2</span>, axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p> 同时进行多列的运算，x对应当前行，通过列名进行索引。</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">'new_col'</span>] = df.groupby(<span class="string">'col1'</span>)[<span class="string">'col2'</span>].transform(<span class="keyword">lambda</span> x: x.sum() + x.count())</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>agg, apply和transform</p>
+<p> agg()只做聚合运算</p>
+<p> apply作用对象是dataframe, 与其他两者相比比较灵活</p>
+<p> transform对dataframe的每一个series做transframe操作</p>
+</li>
+<li><p>df.shift(x)</p>
+<p> 数据平移。df.shift(1), 将所有数据向下平移一个单位。对于时间序列数据，df.shift(30), 会使得每一天对应一个月前（三十天前）的数据。</p>
+</li>
+<li><p>df.rolling(x)</p>
+<p> 滑动窗口。对于时序数据，df.rolling(7).mean()可以用于计算过去七天的滑动平均值。</p>
+</li>
+</ol>
+
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
                 <source type="audio/mpeg" src="">

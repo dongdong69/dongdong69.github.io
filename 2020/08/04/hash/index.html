@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html lang class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>hash - Dong</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Dongdong,"> 
+    <meta name="description" content="什么是哈希
+哈希可以简单地理解为一种映射关系，将任意长度的二进制串映射为固定长度的二进制值串，hash(text) : text -&amp;gt; hashcode。
+一个好的哈希算法具有以下的特征，
+
+,"> 
+    <meta name="author" content="John Doe"> 
+    <link rel="alternative" href="atom.xml" title="Dong" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">Dong</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">hash</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">hash</h1>
+        <div class="stuff">
+            <span>八月 04, 2020</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/algorithm/">algorithm</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/big-data/">big data</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/data-structure/">data structure</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="什么是哈希"><a href="#什么是哈希" class="headerlink" title="什么是哈希"></a>什么是哈希</h2><hr>
+<p>哈希可以简单地理解为一种映射关系，将任意长度的二进制串映射为固定长度的二进制值串，hash(text) : text -&gt; hashcode。</p>
+<p>一个好的哈希算法具有以下的特征，</p>
+<ul>
+<li><p>不可逆：“不能够”从哈希值反向推导出原始数据（经典的P与NP问题，虽然说我们能够在多项式的时间内计算出哈希值，）。</p>
+</li>
+<li><p>冲突小：不同原始数据得到的相同哈希值的概率小。</p>
+</li>
+<li><p>对输入敏感：即便是原始数据微小的变化也会导致哈希值的大差异。（局部敏感哈希？）</p>
+</li>
+<li><p>正向计算效率高：从原始数据计算哈希值的过程应该是搞笑的</p>
+</li>
+</ul>
+<h2 id="哈希的应用"><a href="#哈希的应用" class="headerlink" title="哈希的应用"></a>哈希的应用</h2><hr>
+<p>利用哈希算法的特点，我们可以用其实现数据的存储于快速查找（哈希表），文本加密（MD5，SHA-1等）</p>
+<h3 id="哈希表（数据的快速查询）"><a href="#哈希表（数据的快速查询）" class="headerlink" title="哈希表（数据的快速查询）"></a>哈希表（数据的快速查询）</h3><p>假设我们有数据[3, 5, 7, 9]，我们希望确认元素5是否纯在列表中。</p>
+<ol>
+<li><p>使用数组存储</p>
+<p> 如果我们将数据直接存储在数组或者链表中，我们需要将挨个遍历链表中的元素，其操作的时间复杂度为O(n)。</p>
+</li>
+<li><p>使用哈希表存储</p>
+<p> 这里我们选随意选取一个哈希函数，比方说hash[key] = key % 3。<br> 通过哈希函数的计算，我们可以得到所有数据的存储位置</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hash[<span class="number">3</span>] = <span class="number">3</span> % <span class="number">3</span> = <span class="number">0</span></span><br><span class="line">hash[<span class="number">5</span>] = <span class="number">5</span> % <span class="number">3</span> = <span class="number">2</span></span><br><span class="line">hash[<span class="number">7</span>] = <span class="number">7</span> % <span class="number">3</span> = <span class="number">1</span></span><br><span class="line">hash[<span class="number">9</span>] = <span class="number">9</span> % <span class="number">3</span> = <span class="number">0</span> <span class="comment">#哈希冲突</span></span><br></pre></td></tr></table></figure>
+
+<p> 然后我们将数据存储在相对应的位置，为确认5是否存在我们只需要将5再通过hash函数计算一遍，然后再去计算所得的位置处确认即可，其查询操作的时间复杂度为O(1)</p>
+</li>
+</ol>
+<h4 id="常见的哈希函数"><a href="#常见的哈希函数" class="headerlink" title="常见的哈希函数"></a>常见的哈希函数</h4><ol>
+<li>直接定址法</li>
+</ol>
+<p>直接选取某个关键字的线性函数结果作为散列地址。</p>
+<pre><code>hash[key] = key or hash[key] = a * key + b，a和b为常数</code></pre><ol start="2">
+<li>除留余数法</li>
+</ol>
+<p>取关键字被某个不大于散列表长度m的数p求余(取大了就无法在散列表中找到相应的地址)，得到的作为散列地址。</p>
+<pre><code>hash[key] = key % p</code></pre><p>哈希函数选取的总体原则就是尽可能的<strong>减少冲突</strong></p>
+<h4 id="解决哈希冲突的方法"><a href="#解决哈希冲突的方法" class="headerlink" title="解决哈希冲突的方法"></a>解决哈希冲突的方法</h4><p>从上面的例子中我们可以看到，在哈希函数的计算过程中会遇到<strong>哈希冲突</strong>，就是说不同的key但是通过哈希函数的计算后得到同样的地址，这种情况就称作哈希冲突。即便我们的哈希函数应该尽量避免哈希冲突，但是在实际情况中哈希冲突还是存在的。</p>
+<p>在此之前我们需要提及一个哈希表中的重要概念，<strong>装填因子</strong></p>
+<p>装填因子 = 元素数量/散列表长度</p>
+<ol>
+<li>链接法（拉链法）</li>
+</ol>
+<p>我们将一个长度为m的散列表构造成一个由m个表头组成指针数组。</p>
+<ul>
+<li><p>哈希冲突时下插入：凡是散列地址为i的元素，均插入第i个链表中。</p>
+</li>
+<li><p>哈希冲突是下检索：通过哈希函数计算得到地址i，在第i个链表中遍历寻找元素</p>
+</li>
+<li><p>在拉链法下，装填因子可以大于1</p>
+</li>
+</ul>
+<ol start="2">
+<li>开放定址法</li>
+</ol>
+<p>我们定义一个探测规则，按照此规则逐个单元的查找，直到找到给定的关键词，或者碰到一个开放地址（插入操作，将元素插入到开放地址中，如果为查找操作则说明表中没有该元素，查找失败）。</p>
+<p>规则具体的实现方法有很多，网上也有非常多相应的材料。总的来说，其基本思想就是先依据哈希函数计算地址，如果地址已经被占用，那么就通过规则寻找下一个地址，直到找到空的地址为止，找到以后就将值插入。</p>
+<h3 id="哈希算法（文本加密）"><a href="#哈希算法（文本加密）" class="headerlink" title="哈希算法（文本加密）"></a>哈希算法（文本加密）</h3><hr>
+<p>这里的哈希算法不同于哈希表中的哈希算法。在这里哈希算法用于构造数据的短“指纹”，消息的发送者使用所有的消息产生一个短“指纹”，并将该短“指纹”与消息一起传输给接收者。即使数据存储在不安全的地方，接收者重新计算数据的指纹，并验证指纹是否改变，就能够检测数据的完整性。这是因为一旦数据在中途被破坏或改变，短指纹就不再正确。</p>
+<p>散列函数最主要的作用是用于鉴别，鉴别在网络安全中起到举足轻重的地位。鉴别的目的有以下两个：第一，验证信息的发送者不是冒充的，同时发信息者也不能抵赖，此为信源识别；第二，验证信息完整性，在传递或存储过程中未被篡改，重放或延迟等。</p>
+<h4 id="MD5"><a href="#MD5" class="headerlink" title="MD5"></a>MD5</h4><h3 id="局部敏感哈希（近似数据搜索）"><a href="#局部敏感哈希（近似数据搜索）" class="headerlink" title="局部敏感哈希（近似数据搜索）"></a>局部敏感哈希（近似数据搜索）</h3><hr>
+<p>在实际应用场景中，我们会遇到这样一类问题。数据的数据量很大，并且数据中存在很多高相似度的数据，我们希望找出其中相似的数据并进行去重处理。为达到这一目的我们就需要用到局部敏感哈希。</p>
+<p>与一般的哈希算法不同，普通的哈希算法具有敏感性，数据上微小的变动都会导致哈希值非常大的变化。而局部敏感哈希算法则在于保持数据的相似性，相似的数据具有完全相同的哈希值。</p>
+<h4 id="数据的相似度计算"><a href="#数据的相似度计算" class="headerlink" title="数据的相似度计算"></a>数据的相似度计算</h4><p>首先我们需要知道什么事相似的数据，为此我们需要一个方法来计算文本的相似度。对于不同的数据类型有不同的相似度计算方法。一般来说有欧氏距离，余弦距离和Jaccard距离。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title='0' data-url='http://link.hhtjim.com/163/5146554.mp3'></li>
+                    
+                        <li title='1' data-url='http://link.hhtjim.com/qq/001faIUs4M2zna.mp3'></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

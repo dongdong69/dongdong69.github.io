@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+<html lang class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>retail goods and time series - Dong</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Dongdong,"> 
+    <meta name="description" content="前言
+还是这个老生常谈的话题。之前放了太多精力在图像识别（有机会再讲讲图像识别的项目）和公司客户的项目上，导致一直想写这个话题却迟迟没有开展。曾在去年十月开过一个时间序列的文章，却不了了之。如今时隔,"> 
+    <meta name="author" content="John Doe"> 
+    <link rel="alternative" href="atom.xml" title="Dong" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">Dong</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">retail goods and time series</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">retail goods and time series</h1>
+        <div class="stuff">
+            <span>三月 31, 2020</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Retail/">Retail</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Time-series/">Time series</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><hr>
+<p>还是这个老生常谈的话题。之前放了太多精力在图像识别（有机会再讲讲图像识别的项目）和公司客户的项目上，导致一直想写这个话题却迟迟没有开展。曾在去年十月开过一个时间序列的文章，却不了了之。如今时隔半年，希望能够顺利的开展下去。</p>
+<p>再讲讲为什么要做时间序列。相比于图像和自然语言处理，时间序列的相关问题在当下似乎没有他们这么热门。但在工作中，零售相关的时间序列问题确实我所接触到最多的，同时我认为这也是当下最容易创造价值，客户最容易理解最愿意投入的项目。其最直观的作用体现在能够帮助客户对自己商品库存能有一个良好的准备，避免库存的积压与突然的销量增长导致的库存不足。相对准确的预测能为零售商铺带来非常可观的利益。</p>
+<h2 id="Kaggle上与时间序列相关的项目"><a href="#Kaggle上与时间序列相关的项目" class="headerlink" title="Kaggle上与时间序列相关的项目"></a>Kaggle上与时间序列相关的项目</h2><hr>
+<ol>
+<li><p>M5 Forecasting - Accuracy : <a href="https://www.kaggle.com/c/m5-forecasting-accuracy" target="_blank" rel="noopener">https://www.kaggle.com/c/m5-forecasting-accuracy</a></p>
+<p> 当下正在进行中的kaggle比赛，预测美国沃尔玛的商品零售。 同一时间进行的还有，M5 Forecasting - Uncertainty <a href="https://www.kaggle.com/c/m5-forecasting-uncertainty。该比赛是关于零售商品的时间序列预测竞赛。主办方提供总计1941天3049个来自3大类7小类，3个州10个店铺销售数据。以及1969天的产品销售价格和&#39;calendar&#39;数据。希望能够通过这些数据预测2016-05-23到2016-06-19这28天的每件商品在每个店铺的每天销售量。" target="_blank" rel="noopener">https://www.kaggle.com/c/m5-forecasting-uncertainty。该比赛是关于零售商品的时间序列预测竞赛。主办方提供总计1941天3049个来自3大类7小类，3个州10个店铺销售数据。以及1969天的产品销售价格和&#39;calendar&#39;数据。希望能够通过这些数据预测2016-05-23到2016-06-19这28天的每件商品在每个店铺的每天销售量。</a></p>
+<p> 项目总计有5个文件，其中sales_train_evaluation.csv要等到比赛的最后一个月才会提供给参赛者。 在现有的3个有用的文件中（不包含sample_submission.csv，这只是该比赛的提交样例，对于最终的模型预测等并没有实质性的帮助，仅仅是为了规范化不同的人的结果），sales_train_validation.csv仅包含1913天的训练数据，而calendar.csv和sell_prices.csv都包含全部的1969天的训练，验证和测试数据。</p>
+<p> sales_train_validation.csv记录了各个店铺的各商铺的分类以及记录日中的每一天的销售情况(从2011-01-29到2016-04-24)，在比赛进行到最后一个月时，会提供给参赛者一个新的训练文件，包含从2011-01-29到2016-05-22，总计1941天的销售数据。calendar.csv提供给我们数据记录期间各州每一天的公共假日情况。sell_prices.csv则包含每周每件物品在每天店铺的销售均价。</p>
+<p> 数据集特征：数据特征少，数据量较大</p>
+</li>
+<li><p>Web Traffic Time Series Forecasting : <a href="https://www.kaggle.com/c/web-traffic-time-series-forecasting" target="_blank" rel="noopener">https://www.kaggle.com/c/web-traffic-time-series-forecasting</a></p>
+</li>
+<li><p>ASHRAE - Great Energy Predictor III : <a href="https://www.kaggle.com/c/ashrae-energy-prediction" target="_blank" rel="noopener">https://www.kaggle.com/c/ashrae-energy-prediction</a></p>
+<p> 预测大楼的4种能源消耗，包括电，冷水，气和热水。提供6个数据csv文件，可大致分类三类，训练数据与预测数据（大楼的id，能源的种类，时间，对应能源的消耗。预测数据则不包含能源的具体消耗，需要我们的模型来做预测）。大楼的特征表，包含一个site_id用于链接天气表，可以理解为地理位置信息，building_id链接训练预测表，primary_use大楼的用途（教育，办公等），square_feet面积，year_built建造的年份，floor_count楼层数。天气信息表，特定位置site_id,特定时刻的气温，云层覆盖，海平面高度，风向风速等天气特征。</p>
+<p> 数据集特征：大量缺失数据</p>
+</li>
+<li><p>Corporacion Favorita Grocer Sales Forecasting : <a href="https://www.kaggle.com/c/favorita-grocery-sales-forecasting/" target="_blank" rel="noopener">https://www.kaggle.com/c/favorita-grocery-sales-forecasting/</a></p>
+</li>
+</ol>
+<p>Corporacion Favorita希望能够通过机器学习的方法来帮助他们完成预测，以便他们能够在正确的时间提供足够的商品给他们的客户。提供的七个主要数据文件，其中train.csv与test.csv为主要数据文件，包含物品id，商场id，日期，是否促销以及销量等信息。其余五个文件均为补充信息，包含每天的油价，节假日，商场交易数量，商场以及商品信息。</p>
+<h2 id="时间序列预测的一般做法"><a href="#时间序列预测的一般做法" class="headerlink" title="时间序列预测的一般做法"></a>时间序列预测的一般做法</h2><hr>
+<h3 id="看数据"><a href="#看数据" class="headerlink" title="看数据"></a>看数据</h3><p>将数据文件逐个输出，结合官方文档（客户提供的文件），理解每个文件每个特征的含义以及其存储数据类型。</p>
+<h3 id="EDA（探索性数据分析）"><a href="#EDA（探索性数据分析）" class="headerlink" title="EDA（探索性数据分析）"></a>EDA（探索性数据分析）</h3><p>结合图表等视觉方法，总结数据的特征。</p>
+<p>通过图表，去看一些我们不能够通过csv文件直观感受到的数据的内在特征。期望解决以下问题（包含但不限于），</p>
+<ul>
+<li><p>是否有数据的缺失？</p>
+</li>
+<li><p>是否有脏数据？</p>
+</li>
+<li><p>时间序列大体的趋势是什么样的？</p>
+</li>
+<li><p>同意品类下存在什么共同点？</p>
+</li>
+<li><p>对专业领域特征的展示与验证？</p>
+</li>
+</ul>
+<h3 id="数据的预处理"><a href="#数据的预处理" class="headerlink" title="数据的预处理"></a>数据的预处理</h3><ul>
+<li><p>重新定义数据类型，减少内存的使用</p>
+</li>
+<li><p>缺失值处理</p>
+</li>
+<li><p>脏数据处理</p>
+</li>
+<li><p>数据标准化</p>
+<p>  没有必要将所有数据都归一化，对于树模型来说是没有意义的。这里的标准化只是为了让数据更加符合统计学特征</p>
+</li>
+<li><p>数据的reshape</p>
+<p>  往往客户与主办方提供的数据是没有一个我们所期望的形态的。应该我们会需要通过矩阵的转置，或者是pandas的一些inbuild_function重新排列数据，使得他们能够用于模型训练。</p>
+</li>
+</ul>
+<h3 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h3><ul>
+<li><p>统计学特征</p>
+<p>  不同时间节点，时间窗口下的均值、总和、最大最小值、中位数、众数、方差、一阶差分等。</p>
+<p>  time_lag，不好用文字描述下面直接给出情景和pandas代码。假设我们要预测未来28天的某商品销量，</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对同商品的销量数据做lag操作，可以理解为对数据的右移</span></span><br><span class="line">data.groupby([<span class="string">'id'</span>])[<span class="string">'demand'</span>].transform(<span class="keyword">lambda</span> x:x.shift(<span class="number">28</span>))</span><br></pre></td></tr></table></figure>
+
+<p>  之后我们可以在lag数据的基础上再做rolling_mean。如此rolling_mean这样的特征才能够应用在未知销量需要预测的数据上。</p>
+</li>
+<li><p>专业领域特征</p>
+<p>  网上查询，或者是实际项目中由相关专业领域人员提供。</p>
+</li>
+<li><p>针对数据类别进行的特征提取</p>
+<p>  通常我们会针对数据的分类，分别进行多组特征提取。为同一类别数据提取统一的特征。</p>
+</li>
+</ul>
+<h3 id="模型的训练与选择"><a href="#模型的训练与选择" class="headerlink" title="模型的训练与选择"></a>模型的训练与选择</h3><ul>
+<li><p>建模方式：普通模型，递归模型，day2day模型</p>
+</li>
+<li><p>主模型：一般主要使用树模型（XGBoost，lightgbm，CatBoost），少部分神经网络模型</p>
+</li>
+<li><p>模型集成</p>
+</li>
+</ul>
+<h2 id="时间序列预测解读"><a href="#时间序列预测解读" class="headerlink" title="时间序列预测解读"></a>时间序列预测解读</h2><hr>
+<h3 id="ASHRAE：-2nd-Place-Solution"><a href="#ASHRAE：-2nd-Place-Solution" class="headerlink" title="ASHRAE： 2nd Place Solution"></a>ASHRAE： 2nd Place Solution</h3><p>原文链接： <a href="https://www.kaggle.com/c/ashrae-energy-prediction/discussion/123481" target="_blank" rel="noopener">https://www.kaggle.com/c/ashrae-energy-prediction/discussion/123481</a></p>
+<p>总结：</p>
+<ol>
+<li><p>移除了大量的训练集中的缺失数据（missing value and zero value）。负面影响是会造成预测结果的均值增加，作者最后通过基于预测结果一个参数（0.8~0.85）以弱化这个影响。</p>
+</li>
+<li><p>极少的特征工程，没有将精力重点放在特征工程上。即便是最好的单一模型，使用的特征数量也没有超过30个。作者给出的解释是，在没有好的验证框架的基础上（指得是验证集合以及交叉验证的策略？），是很难构建好的特征的，担心没有办法将训练集上表现好的特征推广运用到测试集上。值得一提的是，在这次的竞赛中，参赛者自己构建的验证集的表现与主办方给出的部分验证集（public leaderboard）的表现相反，验证集的表现越好，PB的得分反而越低。</p>
+</li>
+<li><p>大量的模型训练以及多模型集成。主要训练了7组模型，包括XGB，LGBM，Catboost以及FFNN。针对每一个site每一种能源种类训练模型，针对每一种大楼用途每一种训练种类训练模型，针对整个训练集训练模型。最后将多种方式训练的模型，用weighteed bagging的方式集成起来。表现好的模型将用户较高的参数，最终集成策略30% XGB-bagging + 50% LGBM-bagging + 15% CB-bagging + 5% FFNN。这里的xxx-bagging同样也是集成模型，先同种模型内部集成，最后再多种模型共集成。</p>
+</li>
+</ol>
+<p><strong>针对种类，训练大量为每一个种类训练大量的模型，甚至可以为每一条时间序列训练一个模型，最终的结果用大量的模型集成</strong></p>
+<h3 id="Corporacion-Favorita-Grocer-Sales-Forecasting-1st-place-solution"><a href="#Corporacion-Favorita-Grocer-Sales-Forecasting-1st-place-solution" class="headerlink" title="Corporacion Favorita Grocer Sales Forecasting : 1st place solution"></a>Corporacion Favorita Grocer Sales Forecasting : 1st place solution</h3><p>与上一个比赛的高分模型不同的是，该模型作者们做了大量的特征工程，在模型的集成上仅仅用了4个模型。</p>
+<p>原文链接：<a href="https://www.kaggle.com/c/favorita-grocery-sales-forecasting/discussion/47582" target="_blank" rel="noopener">https://www.kaggle.com/c/favorita-grocery-sales-forecasting/discussion/47582</a></p>
+<p>lgbm模型代码：<a href="https://www.kaggle.com/shixw125/1st-place-lgb-model-public-0-506-private-0-511" target="_blank" rel="noopener">https://www.kaggle.com/shixw125/1st-place-lgb-model-public-0-506-private-0-511</a></p>
+<p>总结</p>
+<ol>
+<li>没有使用全部的数据进行训练。完整的数据从2013-01-01到2017-08-15，在train.csv文件中总计125497040。仅仅使用20170531 - 20170719 或者 20170614 - 20170719的数据进行训练（不同的模型采用了不同的数据范围），作者也尝试着使用了更多的数据进行训练，但由于效果不好最终选择仅使用2017年的数据。另外选择更少的数据还有助于提升程序和模型的运行训练效率。</li>
+</ol>
+<p>在这次比赛中比较有趣的一点是，训练数据与预测数据的数据体量不平衡。test.csv数据量总计3百万+，然后与train.csv相比的话，train占比98.4%，而test占比仅1.6%。或许是这种不平衡，导致过于久远的数据变得无用，因而作者仅使用较近的数据作为训练集与验证集。</p>
+<p><strong>从结果上来看，训练集的选择往往取决于需要预测时间轴。取与预测集最近的，3至4倍即可。比方说我们希望预测未来一整年的数据，那么基变我们有过去十年的数据，仅仅使用过去3年的数据或许就已经足够</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">df_train = pd.read_csv(</span><br><span class="line">    <span class="string">'../input/train.csv'</span>, usecols=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>],</span><br><span class="line">    dtype=&#123;<span class="string">'onpromotion'</span>: bool&#125;,</span><br><span class="line">    converters=&#123;<span class="string">'unit_sales'</span>: <span class="keyword">lambda</span> u: np.log1p(</span><br><span class="line">        float(u)) <span class="keyword">if</span> float(u) &gt; <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span>&#125;,</span><br><span class="line">    parse_dates=[<span class="string">"date"</span>],</span><br><span class="line">    skiprows=range(<span class="number">1</span>, <span class="number">66458909</span>)  <span class="comment"># 2016-01-01</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">df_test = pd.read_csv(</span><br><span class="line">    <span class="string">"../input/test.csv"</span>, usecols=[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>],</span><br><span class="line">    dtype=&#123;<span class="string">'onpromotion'</span>: bool&#125;,</span><br><span class="line">    parse_dates=[<span class="string">"date"</span>]  <span class="comment"># , date_parser=parser</span></span><br><span class="line">).set_index(</span><br><span class="line">    [<span class="string">'store_nbr'</span>, <span class="string">'item_nbr'</span>, <span class="string">'date'</span>]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">items = pd.read_csv(</span><br><span class="line">    <span class="string">"../input/items.csv"</span>,</span><br><span class="line">).set_index(<span class="string">"item_nbr"</span>)</span><br><span class="line"></span><br><span class="line">stores = pd.read_csv(</span><br><span class="line">    <span class="string">"../input/stores.csv"</span>,</span><br><span class="line">).set_index(<span class="string">"store_nbr"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>由此可见，在数据文件的选择上，仅使用train.csv、test.csv、items与stores，而将其他的额外数据都抛弃了。</p>
+<ol start="2">
+<li>对销量进行压缩，<code>np.log1p(unit_sales)</code>。</li>
+</ol>
+<p>$$log(unit_sales + 1)$$</p>
+<p>将偏度较大的数值进行转化，使其更服从高斯分布。</p>
+<ol start="3">
+<li><p>额外数据仅使用items.csv与stores.csv。丢弃了大量的作者认为无用的数据。</p>
+</li>
+<li><p>变换时间窗口，进行非常大量的特征工程。</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">dt, minus: 参数dt与minus共同构成我们开始疾苦的时间</span></span><br><span class="line"><span class="string">periods：为我们所需要记录的天数</span></span><br><span class="line"><span class="string">freq：为记录的频率</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_timespan</span><span class="params">(df, dt, minus, periods, freq=<span class="string">'D'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> df[pd.date_range(dt - timedelta(days=minus), periods=periods, freq=freq)]</span><br></pre></td></tr></table></figure>
+
+<p>该方法为作者做时间窗口时候的主要使用方法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 特征提取block1</span></span><br><span class="line">X = &#123;</span><br><span class="line">    <span class="comment"># 以时间t2017为起点向前截取前14天每天的促销信息并求和</span></span><br><span class="line">    <span class="comment"># 其中t2017为传入的参数，也是变化的</span></span><br><span class="line">    <span class="string">"promo_14_2017"</span>: get_timespan(promo_df, t2017, <span class="number">14</span>, <span class="number">14</span>).sum(axis=<span class="number">1</span>).values,</span><br><span class="line">    <span class="string">"promo_60_2017"</span>: get_timespan(promo_df, t2017, <span class="number">60</span>, <span class="number">60</span>).sum(axis=<span class="number">1</span>).values,</span><br><span class="line">    <span class="string">"promo_140_2017"</span>: get_timespan(promo_df, t2017, <span class="number">140</span>, <span class="number">140</span>).sum(axis=<span class="number">1</span>).values,</span><br><span class="line">    <span class="comment"># 这种写法真的不懂啥意思？在我看来完全等同于get_timespan(promo_df, t2017 + timedelta(days=1), 0, 3)</span></span><br><span class="line">    <span class="comment"># 不知道作者为什么要在这里加了又减</span></span><br><span class="line">    <span class="comment"># 以时间t2017的后一天为起点，连续记录3，7，14天的促销活动总和</span></span><br><span class="line">    <span class="string">"promo_3_2017_aft"</span>: get_timespan(promo_df, t2017 + timedelta(days=<span class="number">16</span>), <span class="number">15</span>, <span class="number">3</span>).sum(axis=<span class="number">1</span>).values,</span><br><span class="line">    <span class="string">"promo_7_2017_aft"</span>: get_timespan(promo_df, t2017 + timedelta(days=<span class="number">16</span>), <span class="number">15</span>, <span class="number">7</span>).sum(axis=<span class="number">1</span>).values,</span><br><span class="line">    <span class="string">"promo_14_2017_aft"</span>: get_timespan(promo_df, t2017 + timedelta(days=<span class="number">16</span>), <span class="number">15</span>, <span class="number">14</span>).sum(axis=<span class="number">1</span>).values,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>为什么统计t2017这个时间节点前的促销信息？</strong></p>
+<p>作者为每一件商品分别记录了开始日期前后的一些促销信息。同时在这个之外还嵌套了一层循环，如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(num_days):</span><br><span class="line">    delta = timedelta(days=<span class="number">7</span> * i)</span><br><span class="line">    t2017 = t2017 + delta</span><br></pre></td></tr></table></figure>
+
+<p>可见t2017本身也是变化，以星期为单位。我们接着看特征提取，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 特征提取block2</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">3</span>, <span class="number">7</span>, <span class="number">14</span>, <span class="number">30</span>, <span class="number">60</span>, <span class="number">140</span>]:</span><br><span class="line">    <span class="comment"># 时间节点t2017前i天的销量</span></span><br><span class="line">    tmp1 = get_timespan(df, t2017, i, i)</span><br><span class="line">    <span class="comment"># 时间节点t2017前i天的促销信息，*1将bool类型数值化</span></span><br><span class="line">    tmp2 = (get_timespan(promo_df, t2017, i, i) &gt; <span class="number">0</span>) * <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 统计促销下的销量mean与weighted sum</span></span><br><span class="line">    X[<span class="string">'has_promo_mean_%s'</span> % i] = (tmp1 * tmp2.replace(<span class="number">0</span>, np.nan)).mean(axis=<span class="number">1</span>).values</span><br><span class="line">    X[<span class="string">'has_promo_mean_%s_decay'</span> % i] = (tmp1 * tmp2.replace(<span class="number">0</span>, np.nan) * np.power(<span class="number">0.9</span>, np.arange(i)[::<span class="number">-1</span>])).sum(axis=<span class="number">1</span>).values</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 统计没有促销下的销量mean与weighted sum</span></span><br><span class="line">    X[<span class="string">'no_promo_mean_%s'</span> % i] = (tmp1 * (<span class="number">1</span> - tmp2).replace(<span class="number">0</span>, np.nan)).mean(axis=<span class="number">1</span>).values</span><br><span class="line">    X[<span class="string">'no_promo_mean_%s_decay'</span> % i] = (tmp1 * (<span class="number">1</span> - tmp2).replace(<span class="number">0</span>, np.nan) * np.power(<span class="number">0.9</span>, np.arange(i)[::<span class="number">-1</span>])).sum(axis=<span class="number">1</span>).value</span><br></pre></td></tr></table></figure>
+
+<p><font color="red">为什么将0替换为nan，其导致的结果是无论在mean还是sum的计算下，只要一个值为nan，结果就是nan？</font><br><strong>值得学习的一点是，weighted的概念的运用，从结果上来看也起到了不错的效果</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 特征提取block3</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">3</span>, <span class="number">7</span>, <span class="number">14</span>, <span class="number">30</span>, <span class="number">60</span>, <span class="number">140</span>]:</span><br><span class="line">    <span class="comment"># 同样的截取，截取时间点的前i天每天的销量</span></span><br><span class="line">    tmp = get_timespan(df, t2017, i, i)</span><br><span class="line">    <span class="comment"># 一阶差分（增长量）</span></span><br><span class="line">    X[<span class="string">'diff_%s_mean'</span> % i] = tmp.diff(axis=<span class="number">1</span>).mean(axis=<span class="number">1</span>).values</span><br><span class="line">    <span class="comment"># 销量的weighted sum</span></span><br><span class="line">    X[<span class="string">'mean_%s_decay'</span> % i] = (tmp * np.power(<span class="number">0.9</span>, np.arange(i)[::<span class="number">-1</span>])).sum(axis=<span class="number">1</span>).values</span><br><span class="line">    <span class="comment"># 以下是各种统计数据包含，均值，中位数，最小值，最大值和标准差</span></span><br><span class="line">    X[<span class="string">'mean_%s'</span> % i] = tmp.mean(axis=<span class="number">1</span>).values</span><br><span class="line">    X[<span class="string">'median_%s'</span> % i] = tmp.median(axis=<span class="number">1</span>).values</span><br><span class="line">    X[<span class="string">'min_%s'</span> % i] = tmp.min(axis=<span class="number">1</span>).values</span><br><span class="line">    X[<span class="string">'max_%s'</span> % i] = tmp.max(axis=<span class="number">1</span>).values</span><br><span class="line">    X[<span class="string">'std_%s'</span> % i] = tmp.std(axis=<span class="number">1</span>).values</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 特征提取block4</span></span><br><span class="line"><span class="comment"># 同样的特征，只是将截取的时间节点再提前一周</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">3</span>, <span class="number">7</span>, <span class="number">14</span>, <span class="number">30</span>, <span class="number">60</span>, <span class="number">140</span>]:</span><br><span class="line">    tmp = get_timespan(df, t2017 + timedelta(days=<span class="number">-7</span>), i, i)</span><br><span class="line">    X[<span class="string">'diff_%s_mean_2'</span> % i] = tmp.diff(axis=<span class="number">1</span>).mean(axis=<span class="number">1</span>).values</span><br><span class="line">    X[<span class="string">'mean_%s_decay_2'</span> % i] = (tmp * np.power(<span class="number">0.9</span>, np.arange(i)[::<span class="number">-1</span>])).sum(axis=<span class="number">1</span>).values</span><br><span class="line">    X[<span class="string">'mean_%s_2'</span> % i] = tmp.mean(axis=<span class="number">1</span>).values</span><br><span class="line">    X[<span class="string">'median_%s_2'</span> % i] = tmp.median(axis=<span class="number">1</span>).values</span><br><span class="line">    X[<span class="string">'min_%s_2'</span> % i] = tmp.min(axis=<span class="number">1</span>).values</span><br><span class="line">    X[<span class="string">'max_%s_2'</span> % i] = tmp.max(axis=<span class="number">1</span>).values</span><br><span class="line">    X[<span class="string">'std_%s_2'</span> % i] = tmp.std(axis=<span class="number">1</span>).values</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 特征提取block5</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">7</span>, <span class="number">14</span>, <span class="number">30</span>, <span class="number">60</span>, <span class="number">140</span>]:</span><br><span class="line">    tmp = get_timespan(df, t2017, i, i)</span><br><span class="line">    <span class="comment"># 统计是否在时间节点前的i天是否有销售记录</span></span><br><span class="line">    X[<span class="string">'has_sales_days_in_last_%s'</span> % i] = (tmp &gt; <span class="number">0</span>).sum(axis=<span class="number">1</span>).values</span><br><span class="line">    <span class="comment"># 记录时间节点前最后有销售记录的时间</span></span><br><span class="line">    X[<span class="string">'last_has_sales_day_in_last_%s'</span> % i] = i - ((tmp &gt; <span class="number">0</span>) * np.arange(i)).max(axis=<span class="number">1</span>).values</span><br><span class="line">    <span class="comment"># 记录时间节点前最早有销售记录的时间</span></span><br><span class="line">    X[<span class="string">'first_has_sales_day_in_last_%s'</span> % i] = ((tmp &gt; <span class="number">0</span>) * np.arange(i, <span class="number">0</span>, <span class="number">-1</span>)).max(axis=<span class="number">1</span>).values</span><br><span class="line"></span><br><span class="line">    <span class="comment">#相同的特征提取运用在促销活动上</span></span><br><span class="line">    tmp = get_timespan(promo_df, t2017, i, i)</span><br><span class="line">    X[<span class="string">'has_promo_days_in_last_%s'</span> % i] = (tmp &gt; <span class="number">0</span>).sum(axis=<span class="number">1</span>).values</span><br><span class="line">    X[<span class="string">'last_has_promo_day_in_last_%s'</span> % i] = i - ((tmp &gt; <span class="number">0</span>) * np.arange(i)).max(axis=<span class="number">1</span>).values</span><br><span class="line">    X[<span class="string">'first_has_promo_day_in_last_%s'</span> % i] = ((tmp &gt; <span class="number">0</span>) * np.arange(i, <span class="number">0</span>, <span class="number">-1</span>)).max(axis=<span class="number">1</span>).values</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从时间节点的后一天开始截取15天的促销数据</span></span><br><span class="line">tmp = get_timespan(promo_df, t2017 + timedelta(days=<span class="number">16</span>), <span class="number">15</span>, <span class="number">15</span>)</span><br><span class="line"><span class="comment"># 时间节点后的15天促销次数</span></span><br><span class="line">X[<span class="string">'has_promo_days_in_after_15_days'</span>] = (tmp &gt; <span class="number">0</span>).sum(axis=<span class="number">1</span>).values</span><br><span class="line"><span class="comment"># 时间节点后15天，最后的促销时间，数值越小时间越靠后</span></span><br><span class="line">X[<span class="string">'last_has_promo_day_in_after_15_days'</span>] = i - ((tmp &gt; <span class="number">0</span>) * np.arange(<span class="number">15</span>)).max(axis=<span class="number">1</span>).values</span><br><span class="line"><span class="comment"># 时间节点后15天，最早的促销时间</span></span><br><span class="line">X[<span class="string">'first_has_promo_day_in_after_15_days'</span>] = ((tmp &gt; <span class="number">0</span>) * np.arange(<span class="number">15</span>, <span class="number">0</span>, <span class="number">-1</span>)).max(axis=<span class="number">1</span>).values</span><br><span class="line"></span><br><span class="line"><span class="comment"># 时间节点前16天，每天商品的销售量</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">16</span>):</span><br><span class="line">    X[<span class="string">'day_%s_2017'</span> % i] = get_timespan(df, t2017, i, <span class="number">1</span>).values.ravel()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 分别统计时间节点前4周，前20周，every weekday的销售均值</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">7</span>):</span><br><span class="line">    X[<span class="string">'mean_4_dow&#123;&#125;_2017'</span>.format(i)] = get_timespan(df, t2017, <span class="number">28</span>-i, <span class="number">4</span>, freq=<span class="string">'7D'</span>).mean(axis=<span class="number">1</span>).values</span><br><span class="line">    X[<span class="string">'mean_20_dow&#123;&#125;_2017'</span>.format(i)] = get_timespan(df, t2017, <span class="number">140</span>-i, <span class="number">20</span>, freq=<span class="string">'7D'</span>).mean(axis=<span class="number">1</span>).values</span><br><span class="line"></span><br><span class="line"><span class="comment"># 时间节点前后15天的促销</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">-16</span>, <span class="number">16</span>):</span><br><span class="line">    X[<span class="string">"promo_&#123;&#125;"</span>.format(i)] = promo_df[t2017 + timedelta(days=i)].values.astype(np.uint8)</span><br><span class="line"></span><br><span class="line">X = pd.DataFrame(X)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果是训练数据，返回训练数据中，时间节点开始的16天销售记录</span></span><br><span class="line"><span class="keyword">if</span> is_train:</span><br><span class="line">    y = df[</span><br><span class="line">        pd.date_range(t2017, periods=<span class="number">16</span>)</span><br><span class="line">    ].values</span><br><span class="line">    <span class="keyword">return</span> X, y</span><br><span class="line"><span class="keyword">if</span> name_prefix <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">    X.columns = [<span class="string">'%s_%s'</span> % (name_prefix, c) <span class="keyword">for</span> c <span class="keyword">in</span> X.columns]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">t2017 = date(<span class="number">2017</span>, <span class="number">6</span>, <span class="number">14</span>)</span><br><span class="line">num_days = <span class="number">6</span></span><br><span class="line">X_l, y_l = [], []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(num_days):</span><br><span class="line">    <span class="comment"># 以一周为基本单位，变换时间节点</span></span><br><span class="line">    delta = timedelta(days=<span class="number">7</span> * i)</span><br><span class="line">    X_tmp, y_tmp = prepare_dataset(df_2017, promo_2017, t2017 + delta)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 针对每个item(df_2017_item统计的是某item在所有商场的每天的销售总和)，做特征工程</span></span><br><span class="line">    X_tmp2 = prepare_dataset(df_2017_item, promo_2017_item, t2017 + delta, is_train=<span class="literal">False</span>, name_prefix=<span class="string">'item'</span>)</span><br><span class="line">    X_tmp2.index = df_2017_item.index</span><br><span class="line">    X_tmp2 = X_tmp2.reindex(df_2017.index.get_level_values(<span class="number">1</span>)).reset_index(drop=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 针对每个class和store(df_2017_item统计的是某类别产品在每个商场的每天的销售总和)，做特征工程</span></span><br><span class="line">    X_tmp3 = prepare_dataset(df_2017_store_class, df_2017_promo_store_class, t2017 + delta, is_train=<span class="literal">False</span>, name_prefix=<span class="string">'store_class'</span>)</span><br><span class="line">    X_tmp3.index = df_2017_store_class.index</span><br><span class="line">    X_tmp3 = X_tmp3.reindex(df_2017_store_class_index).reset_index(drop=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 到目前为止，所有的特征工程均是针对一个物品的</span></span><br><span class="line">    X_tmp = pd.concat([X_tmp, X_tmp2, X_tmp3, items.reset_index(), stores.reset_index()], axis=<span class="number">1</span>)</span><br><span class="line">    X_l.append(X_tmp)</span><br><span class="line">    y_l.append(y_tmp)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">del</span> X_tmp2</span><br><span class="line">    gc.collect()</span><br><span class="line"></span><br><span class="line"><span class="comment"># date(2017, 7, 26) == t2017 + timedelta(days=7 * 6)</span></span><br><span class="line"><span class="comment"># 与训练集的特征工程过程完全相同，时间节点取在训练集的后一周</span></span><br><span class="line">X_val, y_val = prepare_dataset(df_2017, promo_2017, date(<span class="number">2017</span>, <span class="number">7</span>, <span class="number">26</span>))</span><br><span class="line"></span><br><span class="line">X_val2 = prepare_dataset(df_2017_item, promo_2017_item, date(<span class="number">2017</span>, <span class="number">7</span>, <span class="number">26</span>), is_train=<span class="literal">False</span>, name_prefix=<span class="string">'item'</span>)</span><br><span class="line">X_val2.index = df_2017_item.index</span><br><span class="line">X_val2 = X_val2.reindex(df_2017.index.get_level_values(<span class="number">1</span>)).reset_index(drop=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">X_val3 = prepare_dataset(df_2017_store_class, df_2017_promo_store_class, date(<span class="number">2017</span>, <span class="number">7</span>, <span class="number">26</span>), is_train=<span class="literal">False</span>, name_prefix=<span class="string">'store_class'</span>)</span><br><span class="line">X_val3.index = df_2017_store_class.index</span><br><span class="line">X_val3 = X_val3.reindex(df_2017_store_class_index).reset_index(drop=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">X_val = pd.concat([X_val, X_val2, X_val3, items.reset_index(), stores.reset_index()], axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 为测试集做相同的特征工程</span></span><br><span class="line">X_test = prepare_dataset(df_2017, promo_2017, date(<span class="number">2017</span>, <span class="number">8</span>, <span class="number">16</span>), is_train=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">X_test2 = prepare_dataset(df_2017_item, promo_2017_item, date(<span class="number">2017</span>, <span class="number">8</span>, <span class="number">16</span>), is_train=<span class="literal">False</span>, name_prefix=<span class="string">'item'</span>)</span><br><span class="line">X_test2.index = df_2017_item.index</span><br><span class="line">X_test2 = X_test2.reindex(df_2017.index.get_level_values(<span class="number">1</span>)).reset_index(drop=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">X_test3 = prepare_dataset(df_2017_store_class, df_2017_promo_store_class, date(<span class="number">2017</span>, <span class="number">8</span>, <span class="number">16</span>), is_train=<span class="literal">False</span>, name_prefix=<span class="string">'store_class'</span>)</span><br><span class="line">X_test3.index = df_2017_store_class.index</span><br><span class="line">X_test3 = X_test3.reindex(df_2017_store_class_index).reset_index(drop=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">X_test = pd.concat([X_test, X_test2, X_test3, items.reset_index(), stores.reset_index()], axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>作者分别针对5个时间节点做特征工程，时间节点之间的间隔为7天。并将第6个时间节点（第五个的下一周）作为验证集。</p>
+<p>以上就是所有的特征提取过程，其中有以下几个疑点，</p>
+<ul>
+<li><p>每个节点的目标预测值是，包括该节点在内的未来16天销售量，然而作者取时间节点的间隔却是7。也就是说相邻的两组训练数据存在目标值相重合的情况。比方说第一组，其预测目标值是20170614-20170629，第二组是20170621-20170706，他们中间有一段重合的时间。</p>
+</li>
+<li><p>验证集开始的时间节点是20170726，与最后一个训练集刚好相隔一周，其目标值20170726-20170810这16天。而测试集开始的日期为20170816，也就是说作者并没有用20170811-20170815这五天时间。为什么要舍弃这测试集前最近的5天数据？</p>
+</li>
+<li><p>我们的目标值是m*16的一个矩阵（m为需要预测的商品数量），通常来说目标值应当是一个长度为m的数组。作者是如何预测这样的一个矩阵的？</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 为每一天单独训练模型，总计16个模型</span></span><br><span class="line"><span class="comment"># 16个模型的训练集完全相同</span></span><br><span class="line"><span class="comment"># 预测所使用的模型为lightgbm</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">16</span>):</span><br><span class="line">    print(<span class="string">"="</span> * <span class="number">50</span>)</span><br><span class="line">    print(<span class="string">"Step %d"</span> % (i+<span class="number">1</span>))</span><br><span class="line">    print(<span class="string">"="</span> * <span class="number">50</span>)</span><br><span class="line">    dtrain = lgb.Dataset(</span><br><span class="line">        X_train, label=y_train[:, i],</span><br><span class="line">        categorical_feature=cate_vars,</span><br><span class="line">        weight=pd.concat([items[<span class="string">"perishable"</span>]] * num_days) * <span class="number">0.25</span> + <span class="number">1</span></span><br><span class="line">    )</span><br><span class="line">    dval = lgb.Dataset(</span><br><span class="line">        X_val, label=y_val[:, i], reference=dtrain,</span><br><span class="line">        weight=items[<span class="string">"perishable"</span>] * <span class="number">0.25</span> + <span class="number">1</span>,</span><br><span class="line">        categorical_feature=cate_vars)</span><br><span class="line">    bst = lgb.train(</span><br><span class="line">        params, dtrain, num_boost_round=MAX_ROUNDS,</span><br><span class="line">        valid_sets=[dtrain, dval], early_stopping_rounds=<span class="number">125</span>, verbose_eval=<span class="number">50</span></span><br><span class="line">    )</span><br><span class="line">    print(<span class="string">"\n"</span>.join((<span class="string">"%s: %.2f"</span> % x) <span class="keyword">for</span> x <span class="keyword">in</span> sorted(</span><br><span class="line">        zip(X_train.columns, bst.feature_importance(<span class="string">"gain"</span>)),</span><br><span class="line">        key=<span class="keyword">lambda</span> x: x[<span class="number">1</span>], reverse=<span class="literal">True</span></span><br><span class="line">    )))</span><br><span class="line">    val_pred.append(bst.predict(</span><br><span class="line">        X_val, num_iteration=bst.best_iteration <span class="keyword">or</span> MAX_ROUNDS))</span><br><span class="line">    test_pred.append(bst.predict(</span><br><span class="line">        X_test, num_iteration=bst.best_iteration <span class="keyword">or</span> MAX_ROUNDS))</span><br></pre></td></tr></table></figure>
+
+<h4 id="代码总结"><a href="#代码总结" class="headerlink" title="代码总结"></a>代码总结</h4><hr>
+<p>通篇看完，终于明白作者在做什么，可以说是非常精彩与新颖的特征提取与训练集验证集划分，总结为以下几点，</p>
+<ul>
+<li><p>完全抛弃时间。虽然是时间序列的预测，虽然运用了相同的树模型，但是与我们常见的预测方法却截然不同。在我们传统的树模型时间序列预测中，我们会将时间作为训练特征传入模型，并针对与时间提取出诸如weekday、monthday、weekends或者是month等时间信息。但在改模型下，却完全没有这些时间特征。取而代之的是，与某一个时间节点相关的前后促销信息，与该时间节点前的销售量信息。</p>
+</li>
+<li><p>数据节点基本以星期为周期。从代码中我们可以开到，节点的选取，时间窗口的选取基本都是以周为单位的。甚至为了将周完全匹配上预测目标，舍去了训练集合的前五天。这么做使得每一组训练集以及我们的验证集开始的第一天和测试集的第一天星期数是相同的。而为了使得目标值的维度相同，我们所能够取的最近的验证集开始时间点就是，大于16并且为7的倍数的最小数也就是21。而20170726（验证集时间节点）与20170816（测试集时间节点）之间刚好相差了21天，这也就解释了之前的疑惑。</p>
+</li>
+<li><p>为每一天训练单独的模型。也就是说为了预测16天的销量，作者为这16天训练了16个模型，而这些模型使用完全相同的特征与模型参数，唯一不同的仅仅是目标值。</p>
+</li>
+<li><p>将侧重点完全放在特征提取上，单模型预测效果已经在本次比赛中排名第一。上一个比赛中的优秀模型，侧重于模型的集成上，将所有地区的数据分别训练，所有种类的大厦分别训练，做了大量模型集成上的工作。虽说该项目作者仅训练了4个模型，但‘分类’的概念也在其代码中有所体现。作者为在不同商店中的同商品做了特征工程，同时也为同一商店下的同一品类商品做了特征工程，本质上来说与分别为他们训练模型的效果是相仿的。</p>
+</li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title='0' data-url='http://link.hhtjim.com/163/5146554.mp3'></li>
+                    
+                        <li title='1' data-url='http://link.hhtjim.com/qq/001faIUs4M2zna.mp3'></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

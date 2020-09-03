@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+<html lang class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Python Scientific Computing - Dong</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Dongdong,"> 
+    <meta name="description" content="前言
+首先我们需要知道一个问题，python很慢，但是为什么python很慢？
+
+python是动态类型的语言， 在对数值进行操作的时候，需要经常进行数值类型的判断。相比于C语言，C在变量赋值的时候,"> 
+    <meta name="author" content="John Doe"> 
+    <link rel="alternative" href="atom.xml" title="Dong" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">Dong</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">Python Scientific Computing</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Python Scientific Computing</h1>
+        <div class="stuff">
+            <span>四月 15, 2020</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Multiprocessing/">Multiprocessing</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Multithreading/">Multithreading</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/computing/">computing</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><hr>
+<p>首先我们需要知道一个问题，python很慢，但是为什么python很慢？</p>
+<ol>
+<li><p>python是动态类型的语言， 在对数值进行操作的时候，需要经常进行数值类型的判断。相比于C语言，C在变量赋值的时候就需要定义其类型，那么在进行数值计算时候，由于以及知道操作对象的数值类型，直接调用相应的方法即可。</p>
+</li>
+<li><p>解释型语言与编译型语言。最为直观的差别就是，编译型语言在运行前需要现编译才能够运行，而解释型语言则不需要。解释语言需要的是一个解释器，在代买运行的时候一边运行一边解释。python就是一种解释型语言，python具有多种解释器，如Cpython，Jpython与PyPy。这里需要一提的是Cpython与PyPy。Cpython是所有python解释器中运用最为广泛的，从python官网下载python的时候我们就直接获得这个解释器。PyPy与其他python解释器的不同之处是，他是一个动态编译器而不是动态解释器，其结果就是其拥有接近C语言的速度，缺点就是与Cpython有些许不同，有些代码无法在PyPy解释器下运行。</p>
+</li>
+<li><p>GIL全局解释器锁。Cpython中GIL的存在导致在任何时候，python都只能允许一个线程运行。导致python无法进行真正的多线程并行计算，即便python具有concurrent.futures模块用于实现多线程。虽然是假的多线程，但事实上GIL会影响极其依赖于cpu计算的程序，对于I/O依赖型程序（比如说爬虫，api获取数据，数据的读写程序），python的伪多线程还是十分合适的。而对于cpu依赖型程序，我们也可以采用多进程并行计算（注意，这里是多进程并行计算，与多线程有本质的差别），来规避绕开GIL。</p>
+</li>
+</ol>
+<p>对于python程序员来说，绝大多数人都是与数据打交道。python是一个很好的算法与想法的实现工具，我们能够在短时间快速实现算法测试算法，然而代价就是极其缓慢的运行速度。有时候，这种运算速度使我们无法忍耐的。对于熟悉c语言或者是linux脚本语言的程序员来说，他们一般会选择通过c或者脚本来实现数据的拆分与计算。对于不熟悉的人，通过纯python的方式我们也有办法能够无限的接近c计算速度。</p>
+<h2 id="Python下的多线程与多进程"><a href="#Python下的多线程与多进程" class="headerlink" title="Python下的多线程与多进程"></a>Python下的多线程与多进程</h2><hr>
+<p>关于线程与进程的差别这里就不在累述，网络上有相当多的资料，也肯定讲得比我好。</p>
+<p>其实在我换了一个12核心24线程的u（没错就是3900x，AMD YES！）之前，我压根就不知道python在运行的时候只用一个核心（其实对于任何语言来说若是不进行多线程的编程，程序都是单线程的，只是Cpython解释器版的python的差别在于，即便你进行的多线程的编程，实际上还是只有单核心在运行）。在使用笔记本u的时候（核心数少，cup主频低，当然你要是搞了台十几个核心的台式u当我没说），我们根本就不需要去关注这个问题。然而当我们拥有了一个多核心u的时候，那种单核心交火，23核围观的感觉着实难受，3000多买回来的u跑起来还不如自己的笔记本。</p>
+<p>一般我们都将多线程与多进程与两类程序问题结合讨论，I/O密集型与计算密集型。I/O密集型最典型的例子就是爬虫，在等待服务器的返回与下载保存中我们往往需要耗费大量的时间。计算密集型在机器学习领域最常见的就是数据预处理，特征的计算以及图像处理。所以我们需要讨论与实验的就有以下四类。</p>
+<p>在讨论以前我们还是需要再讲一下python中的GIL，由于GIL的存在python的多线程并不是真正并行的，实际运行中工作的核心还是只有一个，然而他真正会影响的也只有计算密集型任务。或者我们可以说python的多线程是并发的而不是并行的。有关于串行，并发与并行的概念这边也不在多讲，百度即可。</p>
+<ol>
+<li><p>I/O多线程</p>
+<p> GIL是I/O友好的。之所以这么说是因为，在线程等待下载与写入时候，线程会释放GIL，这时候其他线程就能够获得运行的机会。因而python下，I/O型多线程虽说不是并行的，因为他是并发友好的，在性能上我们还是能够看到显著的提升。其线程数量一般取决于我们的任务数量，比方说我们要下载十张图片，那么我们我们就最多可以分十个线程，但是并不是说我们有一万张图片就要去分一万个线程，线程之间的切换也是有损耗的。</p>
+</li>
+<li><p>计算密集多线程</p>
+<p> python的多线程是并发的，并发对于计算密集型任务来说是没有意义的，只会增加线程之间切换的额外开销。</p>
+</li>
+<li><p>计算密集型多进程</p>
+<p> 对于计算密集型任务，多进程是更为有效的方式。通常要实现python下的多进程，我们所要做的事情是先将数据进行拆分。比方说我有24个核心，我会将数据拆分为尽量均匀的24份。并为这24份数据分别创建24个进程，完成计算后再将数据合在一起。与多线程并发不同的是进程数量不应多余cpu的核心数，当超过核心数量的时候，多余的进程是没有意义的，需要等待前面的进程完成才能够运行。而多线程是可以超过cpu核心数量的。同时对于多进程来说，还需要提一句的是，多进程会耗费额外的资源，比方说内存。这是由于线程与进程之间的差异导致的，我们需要为每个进程单独分配计算机资源。</p>
+</li>
+<li><p>I/O多进程</p>
+<p> 同样可以提高的I/O型任务的效率。但是I/O多进程相比于I/O多线程，我们通常认为后者的提升更加明显。</p>
+</li>
+</ol>
+<h2 id="Pandas与numpy"><a href="#Pandas与numpy" class="headerlink" title="Pandas与numpy"></a>Pandas与numpy</h2><hr>
+<p>在python下进行数值计算，最常见的工具就是pandas与numpy。他们两者都比原生python计算要高效得多。</p>
+<p>但如果要将它们两者相比较的话，各有各的优点。用pandas的inbuild function来进行数值计算可以使得我们的代码十分简洁，可读性也很不错。但是与numpy比的话，就要慢得多。同时后面我们会用numba.jit模块进一步提升计算效率，而jit模块是无法识别pandas的inbuild function以及pandas下的series和dataframe类型。</p>
+<p>所以多余计算的实现上，我推荐使用纯粹的numpy。</p>
+<h2 id="python-dict取代pandas"><a href="#python-dict取代pandas" class="headerlink" title="python dict取代pandas"></a>python dict取代pandas</h2><hr>
+<p>优点：更加高效。主要体现在数据的索引和，和创建新的列（特征上）。比方说我们有两个完全相同的数据，data_dict与data_df，差别在于data_dict是dictionary而data_df是pandas的pandas。然后我们计算了一个新的特征，现在需要将特征添加到我们的数据结构中，对于dict和pandas这个过程的代码都是完全相同的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 完全相同的代码，效率却有5倍左右的差距</span></span><br><span class="line">data_dict[<span class="string">'new_col'</span>] = new_feature</span><br><span class="line">data_df[<span class="string">'new_col'</span>] = new_feature</span><br></pre></td></tr></table></figure>
+
+<p>缺点：实际测试下，相同的数据dictionary将会占用20倍以上的内存空间。</p>
+<h2 id="numba-jit"><a href="#numba-jit" class="headerlink" title="numba.jit"></a>numba.jit</h2><hr>
+<p>numba.jit是个啥？很多python程序员可能都不太有接触。</p>
+<p>jit是python numba模块下的一个装饰器，能够在我们运行代码的时候讲python编译为机器语言，以提升代码的执行效率。之所以推荐使用纯粹的numpy还有一个原因就是，根据numba的官方文档。numba是numpy友好的，就是说在编译时，使用numpy编写的程序能够有更多的提升。numba.jit的使用上也十分简单，仅仅需要在function前面加上jit装饰器即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numba <span class="keyword">import</span> jit</span><br><span class="line"></span><br><span class="line"><span class="meta">@jit</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_func</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>然而jit并不是时时刻刻对代码都有提升的。需要明确的一点是，其提升主要体现在数值计算上，而对于一般的python执行语句是没有什么效果的。另外，当代码中有大量的for循环以及numpy数据类型时候，jit会带兰显著的提升。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func_add</span><span class="params">()</span>:</span></span><br><span class="line">    sum_num = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000000</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">100</span>):</span><br><span class="line">            sum_num = sum_num + i + j</span><br><span class="line">    <span class="keyword">return</span> sum_num</span><br><span class="line"></span><br><span class="line">start = time.time()</span><br><span class="line">result = func_add()</span><br><span class="line">print(time.time()-start)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;<span class="number">6.775133371353149</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@jit</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">faster_func_add</span><span class="params">()</span>:</span></span><br><span class="line">    sum_num = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000000</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">100</span>):</span><br><span class="line">            sum_num = sum_num + i + j</span><br><span class="line">    <span class="keyword">return</span> sum_num</span><br><span class="line"></span><br><span class="line">start = time.time()</span><br><span class="line">result = faster_func_add()</span><br><span class="line">print(time.time()-start)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;<span class="number">0.03997468948364258</span></span><br></pre></td></tr></table></figure>
+
+<p>更进一步的，我们可以通过定义<code>@jit(nopython=True)</code>，来进一步的提升jit的性能，同时这也是官方的推荐用法。但是在此之后，就要十分注意自己的代码，不能够出现jit所不能编译的语句，比如pandas中的数值类型以及inbuild function。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@jit(nopython=True)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fastest_func_add</span><span class="params">()</span>:</span></span><br><span class="line">    sum_num = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000000</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">100</span>):</span><br><span class="line">            sum_num = sum_num + i + j</span><br><span class="line">    <span class="keyword">return</span> sum_num</span><br><span class="line"></span><br><span class="line">start = time.time()</span><br><span class="line">result = fastest_func_add()</span><br><span class="line">print(time.time()-start)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;<span class="number">0.03841400146484375</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Cython"><a href="#Cython" class="headerlink" title="Cython"></a>Cython</h2><hr>
+<p>Cython是python中的package。<br>Cython使得我们可以在python下调用C函数，同时也使得我们能够在python中写一种python与C的混合语言。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cdef int my_min(int x, int y):</span><br><span class="line">    <span class="keyword">return</span> x <span class="keyword">if</span> x &lt;= y <span class="keyword">else</span> y</span><br></pre></td></tr></table></figure>
+
+<p>可以看到其最为明显的差别就是定义了变量的类型，可以说是放弃了python所具有的优点，转而去追求运算的速度。我个人认为，与其在python中去编写Cython这种混合型代码，不如直接用linux脚本语言以及C语言来完成数据的拆分以及计算。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title='0' data-url='http://link.hhtjim.com/163/5146554.mp3'></li>
+                    
+                        <li title='1' data-url='http://link.hhtjim.com/qq/001faIUs4M2zna.mp3'></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

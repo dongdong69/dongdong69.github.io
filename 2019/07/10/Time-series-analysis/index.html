@@ -194,13 +194,8 @@ As for an example, lets see the reference for the product which <b>sold the most
 <p>DTW believes that if the points of the two sequences correspond correctly, then their distance (<strong>Euclidean distance</strong>) is minimized. We used <strong>Euclidean distance</strong>, because it has a good proformance in our dataset.</p>
 <p>Just as its name, DTW is implemented by <strong>Dynamic planning</strong>. The following formula shows how to use it to calculate the distance between $Product_u$ and $Product_v$.</p>
 <center>
-    <img src="http://latex.codecogs.com/gif.latex?distance[day_{u,i}, day_{v,j}] = 
-\begin{cases}
-(day_{u,0} - day_{v,0})^2    &    & \text{i=0, j=0}\\
-(day_{u,0} - day_{v,j})^2 + distance[day_{u,0}, day_{v,j-1}]    &    & i=0, j \neq 0\\
-(day_{u,i} - day_{v,0})^2 + distance[day_{u,i-1}, day_{v,0}]    &    & i \neq 0, j=0\\
-(day_{u,i} - day_{v,j})^2 + min(distance[day_{u,i-1}, day_{v,j-1}], distance[day_{u,i-1}, day_{v,j}], distance[day_{u,i}, day_{v,j-1}])    &    & i\neq0, j \neq 0
-\end{cases}">
+    <img src="http://latex.codecogs.com/gif.latex?distance[day_{u,i}, day_{v,j}] = \begin{cases}(day_{u,0} - day_{v,0})^2    &    & \text{i=0, j=0}\\(day_{u,0} - day_{v,j})^2 + distance[day_{u,0}, day_{v,j-1}]    &    & i=0, j \neq 0\\(day_{u,i} - day_{v,0})^2 + distance[day_{u,i-1}, day_{v,0}]    &    & i \neq 0, j=0\\(day_{u,i} - day_{v,j})^2 + min(distance[day_{u,i-1}, day_{v,j-1}], distance[day_{u,i-1}, day_{v,j}], distance[day_{u,i}, day_{v,j-1}])    &    & i\neq0, j \neq 0
+    \end{cases}">
 </center>
 
 <p><strong>The $distance$ here is different from previous.</strong></p>
